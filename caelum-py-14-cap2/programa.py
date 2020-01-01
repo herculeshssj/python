@@ -1,0 +1,5 @@
+print('Minha primeira aplicação Python!')
+print('')
+print('Hello World!')
+print('')
+print('Primeira aplicação em Python 3.\nEste programa roda também no Python 2.')
