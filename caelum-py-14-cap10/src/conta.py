@@ -1,6 +1,5 @@
 import datetime
 
-
 class Cliente:
     def __init__(self, nome, sobrenome, cpf):
         self.nome = nome
@@ -27,7 +26,6 @@ class Conta:
     def deposita(self, valor):
         self.saldo += valor
         self.historico.transacoes.append("Depósito de {}".format(valor))
-
 
     def saca(self, valor):
         if self.saldo < valor:
