@@ -1,4 +1,5 @@
 from funcionario import Funcionario, Gerente, Cliente, ControleDeBonificacoes
+from conta import Conta, ContaCorrente, ContaPoupanca, AtualizadorDeContas
 
 class MinhaClasse:
     def __str__(self):
@@ -41,3 +42,27 @@ if __name__ == '__main__':
     p2 = eval(repr(p1))
     print(p1)
     print(p2)
+
+    c = Conta('123-4', 'Joao', 1000.0)
+    cc = ContaCorrente('123-5', 'Jose', 1000.0)
+    cp = ContaPoupanca('123-6', 'Maria', 1000.0)
+
+    c.atualiza(0.01)
+    cc.atualiza(0.01)
+    cp.atualiza(0.01)
+
+    print(c.saldo)
+    print(cc.saldo)
+    print(cp.saldo)
+
+    print(c)
+    print(cc)
+    print(cp)
+
+    adc = AtualizadorDeContas(0.01)
+
+    adc.roda(c)
+    adc.roda(cc)
+    adc.roda(cp)
+
+    print('Saldo total: {}'.format(adc.saldo_total))

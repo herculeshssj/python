@@ -1,5 +1,6 @@
 import datetime
 
+
 class Cliente:
     def __init__(self, nome, sobrenome, cpf):
         self.nome = nome
@@ -22,6 +23,9 @@ class Conta:
         self.saldo = saldo
         self.limite = limite  # valor padrão: 1000.0
         self.historico = Historico()
+
+    def __str__(self):
+        return '< Instância de {}; endereço: {}'.format(self.__class__.__name__, id(self))
 
     def deposita(self, valor):
         self.saldo += valor
@@ -48,6 +52,9 @@ class Conta:
         else:
             return False
 
+    def atualiza(self, taxa):
+        self.saldo += self.saldo * taxa
+
 
 class Historico:
     def __init__(self):
@@ -59,3 +66,36 @@ class Historico:
         print("Transações: ")
         for t in self.transacoes:
             print("-", t)
+
+
+class ContaCorrente(Conta):
+    def atualiza(self, taxa):
+        self.saldo += self.saldo * taxa * 2
+
+    def deposita(self, valor):
+        self.saldo += valor - 0.10
+        self.historico.transacoes.append("Depósito de {}".format(valor))
+
+
+class ContaPoupanca(Conta):
+    def atualiza(self, taxa):
+        self.saldo += self.saldo * taxa * 3
+
+
+class AtualizadorDeContas:
+
+    def __init__(self, selic, saldo_total=0):
+        self._selic = selic
+        self._saldo_total = saldo_total
+
+    @property
+    def saldo_total(self):
+        return self._saldo_total
+
+    def roda(self, conta):
+        # Imprime o saldo anterior, atualiza a conta e depois imprime o saldo final
+        # Soma o saldo final ao atributo saldo_total
+        print('Saldo anterior: {}'.format(conta.saldo))
+        conta.atualiza(self._selic)
+        print('Saldo atual: {}'.format(conta.saldo))
+        self._saldo_total += conta.saldo
