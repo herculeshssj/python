@@ -1,4 +1,5 @@
-from funcionario import Gerente, Cliente, ControleDeBonificacoes, Secretario
+from funcionario import Gerente, Cliente, ControleDeBonificacoes, Secretario, Diretor
+from autenticacao import Autenticavel
 from conta import Conta, ContaCorrente, ContaPoupanca, AtualizadorDeContas
 
 if __name__ == '__main__':
@@ -41,3 +42,11 @@ if __name__ == '__main__':
     adc.roda(cp)
 
     print('Saldo total: {}'.format(adc.saldo_total))
+
+    Autenticavel.register(Diretor)
+    d = Diretor('José', '22222222-22', 3000.0)
+    # d.autentica('?')
+    if isinstance(d, Autenticavel):
+        d.autentica('?')
+    else:
+        print("Diretor não implementa a interface Autenticavel")

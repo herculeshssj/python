@@ -1,5 +1,5 @@
 import abc
-
+from autenticacao import Autenticavel
 
 class Funcionario(abc.ABC):
 
@@ -74,3 +74,14 @@ class ControleDeBonificacoes:
     @property
     def total_bonificacoes(self):
         return self._total_bonificacoes
+
+
+class SistemaInterno:
+
+    def login(self, obj):
+        if isinstance(obj, Autenticavel):
+            obj.autentica(obj.senha)
+            return True
+        else:
+            print("{} não é autenticável".format(self.__class__.__name__))
+            return False
