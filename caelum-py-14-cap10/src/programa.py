@@ -1,4 +1,4 @@
-from funcionario import Funcionario, Gerente, Cliente, ControleDeBonificacoes
+from funcionario import Gerente, Cliente, ControleDeBonificacoes, Secretario
 from conta import Conta, ContaCorrente, ContaPoupanca, AtualizadorDeContas
 
 class MinhaClasse:
@@ -19,7 +19,7 @@ class Ponto:
 
 
 if __name__ == '__main__':
-    funcionario = Funcionario('João', '111.111.111-11', 2000)
+    funcionario = Secretario('João', '111.111.111-11', 2000)
     print('Funcionário: {}'.format(funcionario.nome))
     print('Bonificação: {}'.format(funcionario.get_bonificacao()))
 

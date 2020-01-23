@@ -1,4 +1,7 @@
-class Funcionario:
+import abc
+
+
+class Funcionario(abc.ABC):
 
     def __init__(self, nome, cpf, salario):
         self._nome = nome
@@ -8,6 +11,16 @@ class Funcionario:
     @property
     def nome(self):
         return self._nome
+
+    @abc.abstractmethod
+    def get_bonificacao(self):
+        pass
+
+
+class Secretario(Funcionario):
+
+    def __init__(self, nome, cpf, salario):
+        super().__init__(nome, cpf, salario)
 
     def get_bonificacao(self):
         return self._salario * 0.10
@@ -21,8 +34,7 @@ class Gerente(Funcionario):
         self._qtd_gerenciados = qtd_gerenciados
 
     def get_bonificacao(self):
-        # return self._salario * 0.15
-        return super().get_bonificacao() + 1000
+        return (self._salario * 0.15) + 1000
 
     def autentica(self, senha):
         if self._senha == senha:
@@ -32,6 +44,7 @@ class Gerente(Funcionario):
             print("Acesso negado")
             return False
 
+
 class Cliente:
     def __init__(self, nome, cpf, senha):
         self._nome = nome
@@ -40,7 +53,7 @@ class Cliente:
 
 
 class ControleDeBonificacoes:
-    def __init__(self, total_bonificacoes = 0):
+    def __init__(self, total_bonificacoes=0):
         self._total_bonificacoes = total_bonificacoes
 
     def registra(self, obj):
