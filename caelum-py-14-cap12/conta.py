@@ -28,16 +28,18 @@ class Conta:
         return '< Instância de {}; endereço: {}'.format(self.__class__.__name__, id(self))
 
     def deposita(self, valor):
+        if valor < 0:
+            raise ValueError('Você tentou depositar um valor negativo')
+
         self.saldo += valor
         self.historico.transacoes.append("Depósito de {}".format(valor))
 
     def saca(self, valor):
         if self.saldo < valor:
-            return False
+            raise SaldoInsuficienteError('Saldo insuficiente')
         else:
             self.saldo -= valor
             self.historico.transacoes.append("Saque de {}".format(valor))
-            return True
 
     def extrato(self):
         print("Número: {} \nSaldo: {}".format(self.numero, self.saldo))
@@ -104,3 +106,7 @@ class AtualizadorDeContas:
         conta.atualiza(self._selic)
         print('Saldo atual: {}'.format(conta.saldo))
         self._saldo_total += conta.saldo
+
+
+class SaldoInsuficienteError(RuntimeError):
+    pass
