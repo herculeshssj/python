@@ -33,3 +33,11 @@ if __name__ == '__main__':
         print(f'Idade não determinada!')
     else:
         print(f'{nome} é menor de idade.')
+
+    idade_minima = 20
+    idade_maxima = 30
+
+    if idade_minima <= idade <= idade_maxima:
+        print(f'{nome} pode pegar o empréstimo.')
+    else:
+        print(f'{nome} não pode pegar o empréstimo.')
