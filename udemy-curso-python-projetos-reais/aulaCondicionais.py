@@ -10,13 +10,15 @@ if __name__ == '__main__':
         print('Verdadeiro')
     print('Falso')
 
-    # Operadores lógicos
+    # Operadores de comparação
     # == igual
     # > maior
     # >= maior igual que
     # < menor
     # <= menor igual que
     # != diferente
+
+    # Operadores lógicos
     # and
     # or
     # not
@@ -26,6 +28,14 @@ if __name__ == '__main__':
         print('São iguais')
     else:
         print('São diferentes')
+
+    a = ''
+    b = 0
+    if not a:
+        print('Por favor informe um valor para a')
+
+    if not b:
+        print('Por favor informe um valor para b')
 
     nome = input('Qual é o seu nome? ')
     idade = int(input('Qual a sua idade? '))
@@ -41,7 +51,12 @@ if __name__ == '__main__':
     idade_minima = 20
     idade_maxima = 30
 
-    if idade_minima <= idade <= idade_maxima:
+    if idade >= idade_minima and idade <= idade_maxima:
         print(f'{nome} pode pegar o empréstimo.')
     else:
         print(f'{nome} não pode pegar o empréstimo.')
+
+    if 'a' in nome or 'e' in nome or 'i' in nome or 'o' in nome or 'u' in nome:
+        print(f'{nome}, seu nome possui vogais.')
+    else:
+        print(f'{nome}, seu nome não possui vogais.')
