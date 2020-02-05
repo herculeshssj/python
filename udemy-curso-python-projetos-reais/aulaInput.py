@@ -6,3 +6,8 @@ if __name__ == '__main__':
     print()  # Pular uma linha
     print(f'{nome} tem {idade}.\n\r'
           f'{nome} nasceu em {ano_nascimento}.')
+
+    # Aproveitando a aula da função len()
+
+    qtdCaracteres = len(nome)
+    print(f'Nome "{nome}" possui {qtdCaracteres} caracteres.')

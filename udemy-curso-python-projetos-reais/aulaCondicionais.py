@@ -60,3 +60,7 @@ if __name__ == '__main__':
         print(f'{nome}, seu nome possui vogais.')
     else:
         print(f'{nome}, seu nome não possui vogais.')
+
+    # Aproveitando a aula da função len()
+    print(f'Total de caracteres: {len(nome)}')
+    print(f'Total de caracteres (usando o __len__()): {nome.__len__()}')

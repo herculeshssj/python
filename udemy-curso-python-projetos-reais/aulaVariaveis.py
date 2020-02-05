@@ -19,3 +19,7 @@ if __name__ == '__main__':
     print('{0} tem {1} anos e seu IMC é {2}'.format(nome, idade, imc))  # Pode usar índice nas chaves
     print('{a} tem {b} anos e seu IMC é {c}'.format(a=nome, b=idade, c=imc))  # Pode usar parâmetros nomeados
 
+    # Aproveitando para incluir a função len()
+    quantCaracteres = len(nome)
+    print(f'{nome} tem {quantCaracteres} caracteres.')
+
