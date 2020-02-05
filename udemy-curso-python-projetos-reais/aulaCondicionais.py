@@ -17,6 +17,10 @@ if __name__ == '__main__':
     # < menor
     # <= menor igual que
     # != diferente
+    # and
+    # or
+    # not
+    # in
 
     if 2 == '2':
         print('São iguais')
