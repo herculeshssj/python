@@ -1,5 +1,8 @@
 '''
 Programa Calculadora
+
+Obs: o programa foi deixado incompleto de propósito. O desafio é quem baixar este repositório conseguir implementar
+este programa de calculadora. Boa sorte. ;)
 '''
 
 if __name__ == '__main__':
