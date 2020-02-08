@@ -49,3 +49,18 @@ if __name__ == '__main__':
     texto = 'Python'
     for letra in texto:
         print(letra)
+
+    # Mostrando o índice
+    for n, letra in enumerate(texto):
+        print(n, letra)
+
+    print()
+    # range( start=0, stop, step=1)
+    for numero in range(1, 10, 2): # Inicia no 1, até 10, 2 passos
+        print(numero)
+
+    print()
+    for n in range(20, 10, -1):
+        print(n)
+
+    # Break e continue também são válidos no loop for
