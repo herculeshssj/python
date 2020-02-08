@@ -20,4 +20,32 @@ if __name__ == '__main__':
     else:
         print('Entrei no else do while')
 
+    print('Iteração de strings')
+    minha_string = 'O rato roeu a roupa do rei de Roma.'
+    print(minha_string[2])
+
+    contador = 0
+    string_cebolinha = ''
+    while contador < len(minha_string):
+        print(minha_string[contador])
+
+        if minha_string[contador] == 'r':
+            string_cebolinha += 'l'
+        elif minha_string[contador] == 'R':
+            string_cebolinha += 'L'
+        else:
+            string_cebolinha += minha_string[contador]
+
+        contador += 1
+    else:
+        print('Fim da string')
+
+    print(f'String à la Cebolinha: {string_cebolinha}')
+    print('Quantidade de "L" inseridos: ', string_cebolinha.count('L'))
+    print('Quantidade de "l" inseridos: ', string_cebolinha.count('l'))
+
+    print()
     print('Estrutura for')
+    texto = 'Python'
+    for letra in texto:
+        print(letra)
