@@ -34,6 +34,11 @@ if __name__ == '__main__':
         elif len(cpf) != 11:
             print('CPF deve conter 11 números!')
             continue
+        elif cpf.count('1') == 11 or cpf.count('2') == 11 or cpf.count('3') == 11 or cpf.count('4') == 11 or \
+                cpf.count('5') == 11 or cpf.count('6') == 11 or cpf.count('7') == 11 or cpf.count('8') == 11 or \
+                cpf.count('9') == 11 or cpf.count('0') == 11:
+            print('CPF não pode conter números repetidos!')
+            continue
         else:
             # CPF prontro para validar
             break
