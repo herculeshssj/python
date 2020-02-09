@@ -58,3 +58,19 @@ if __name__ == '__main__':
     # Usando enumerate para iterar nested lists
     for indice, valor in enumerate(nested_list):
         print(f'Índice: {indice}; Valor: {valor}')
+
+    # Desempacotamento de listas
+    lista_nomes = ['Luiz', 'João', 'Maria']
+    n1, n2, n3 = lista_nomes
+    print(n2)
+
+    lista_nomes = ['Luiz', 'João', 'Maria', 'Rebeca', 'Mônica', 'Yuri']
+    n1, n2, *outra_lista, ultimo_da_lista = lista_nomes
+    print(n1, n2, outra_lista, ultimo_da_lista)
+    # *outra_lista vai armazenar os valores da lista que não puderam ser associados a uma variável
+    # as variáveis iniciais serão associadas aos primeiros valores da lista até encontrar o *outra_lista
+    # o mesmo ocorre com os valores finais, eles serão associados com as variáveis que aparecem após *outra_lista
+
+    # Convenção
+    n1, n2, *_ = lista_nomes
+    # O ' *_ ' indica para outros desenvolvedores que não irei utilizar os demais valores da lista
