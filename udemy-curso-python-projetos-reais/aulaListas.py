@@ -43,3 +43,18 @@ if __name__ == '__main__':
     # Vendo os tipos de elementos da lista
     for elem in lista:
         print(f'O tipo do elemento {elem} é {type(elem)}')
+
+    # Enumerate
+    for indice, valor in enumerate(tabuada19):
+        print(f'Índice: {indice}; Valor: {valor}')
+
+    # Nested lists (listas dentro lista)
+    nested_list = [
+        [0, 2, 4, 6, 8],
+        [1, 3, 5, 7, 9]
+    ]
+    print(nested_list)
+
+    # Usando enumerate para iterar nested lists
+    for indice, valor in enumerate(nested_list):
+        print(f'Índice: {indice}; Valor: {valor}')

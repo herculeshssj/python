@@ -72,3 +72,4 @@ if __name__ == '__main__':
             print(f'{n} é ímpar')
     else:
         print('Todos os números da lista foram exibidos.')
+

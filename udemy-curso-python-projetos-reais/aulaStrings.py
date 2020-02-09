@@ -57,3 +57,21 @@ if __name__ == '__main__':
     # inicio:fim:passo
     nova_string = texto[0:6:2]
     print(nova_string)
+
+    # Função split()
+    # É idêntico ao método split() da classe String no Java
+    frase1 = 'O Brasil é o país do futebol, O Brasil é penta.'
+    lista1_frase1 = frase1.split(' ')
+    lista2_frase1 = frase1.split(',')
+    print(lista1_frase1)
+    print(lista2_frase1)
+
+    print(f'Letra "a" apareceu {frase1.count("a")} vezes na frase.')
+    print(f'Letra "e" apareceu {frase1.count("e")} vezes na frase.')
+    print(f'Letra "i" apareceu {frase1.count("i")} vezes na frase.')
+    print(f'Letra "o" apareceu {frase1.count("o")} vezes na frase.')
+    print(f'Letra "u" apareceu {frase1.count("u")} vezes na frase.')
+
+    # Função join()
+    frase2 = ','.join(lista1_frase1)
+    print(frase2)
