@@ -77,3 +77,7 @@ if __name__ == '__main__':
     # Operador ternário
     senha = input('Informe a senha (123456): ')
     print('Usuário logado' if int(senha) == 123456 else 'Usuário não logado')
+
+    # Facilitando a vida com or
+    cidade = input('Digite a cidade onde você mora: ')
+    print(cidade or 'Nenhuma cidade foi informada!')
