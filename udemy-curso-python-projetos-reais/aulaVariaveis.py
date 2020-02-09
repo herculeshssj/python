@@ -23,3 +23,18 @@ if __name__ == '__main__':
     quantCaracteres = len(nome)
     print(f'{nome} tem {quantCaracteres} caracteres.')
 
+    # Inverter valores entre variáveis
+    x = 10
+    y = 'João'
+    print(f'Valor de x: {x}; Valor de y: {y}')
+
+    # Modo clássico
+    z = x
+    x = y
+    y = z
+    print(f'Valor de x: {x}; Valor de y: {y}')
+
+    # Modo Python de inversão de valores entre variáveis
+    y, x = x, y
+    print('Inversão de valores - modo Python')
+    print(f'Valor de x: {x}; Valor de y: {y}')
