@@ -63,4 +63,12 @@ if __name__ == '__main__':
     for n in range(20, 10, -1):
         print(n)
 
-    # Break e continue também são válidos no loop for
+    # Break, continue e else também são válidos no loop for
+    numeros = list(range(0,11))
+    for n in numeros:
+        if n % 2 == 0:
+            print(f'{n} é par')
+        else:
+            print(f'{n} é ímpar')
+    else:
+        print('Todos os números da lista foram exibidos.')
