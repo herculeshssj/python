@@ -73,3 +73,7 @@ if __name__ == '__main__':
     # Aproveitando a aula da função len()
     print(f'Total de caracteres: {len(nome)}')
     print(f'Total de caracteres (usando o __len__()): {nome.__len__()}')
+
+    # Operador ternário
+    senha = input('Informe a senha (123456): ')
+    print('Usuário logado' if int(senha) == 123456 else 'Usuário não logado')
