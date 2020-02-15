@@ -74,3 +74,9 @@ if __name__ == '__main__':
     # Convenção
     n1, n2, *_ = lista_nomes
     # O ' *_ ' indica para outros desenvolvedores que não irei utilizar os demais valores da lista
+
+    # Desempacotamento de listas
+    print('Desempacotamento de listas')
+    uma_lista = [1, 2, 3, 4, 5]
+    print(*uma_lista)
+    print(*uma_lista, sep=',') # Desempacotamento com separador
