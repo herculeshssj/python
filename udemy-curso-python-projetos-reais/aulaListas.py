@@ -79,4 +79,24 @@ if __name__ == '__main__':
     print('Desempacotamento de listas')
     uma_lista = [1, 2, 3, 4, 5]
     print(*uma_lista)
-    print(*uma_lista, sep=',') # Desempacotamento com separador
+    print(*uma_lista, sep=',')  # Desempacotamento com separador
+
+    ###### List Comprehension #####
+    l10 = range(0, 100)
+    l11 = [variavel for variavel in l10]
+    print(l11)
+
+    ex1 = [v * 2 for v in l10]
+    print(ex1)
+
+    ex2 = [(v1, v2) for v1 in l10 for v2 in range(0, 100)]
+    print(ex2)
+
+    ex3 = [v.replace('a', '@') for v in alfabeto]
+    print(ex3)
+
+    ex4 = [v for v in l10 if v % 2 == 0]
+    print(ex4)
+
+    ex5 = [v if v % 3 == 0 else -1 for v in l11]
+    print(ex5)

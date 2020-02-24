@@ -40,3 +40,13 @@ if __name__ == '__main__':
     # Converter lista em tupla
     t6 = tuple(l2)
     print(t6, type(t6))
+
+    tupla = (
+        ('chave1', 'valor1'),
+        ('chave2', 'valor2')
+    )
+
+    ex1 = [(y, x) for x, y in tupla]
+    print(ex1)
+    ex1 = dict(ex1)
+    print(ex1['valor1'])
