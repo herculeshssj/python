@@ -54,7 +54,7 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
             row_copy = list(row)
             test_set.append(row_copy)
             row_copy[-1] = None
-        predicted = evaluate_algorithm(train_set, test_set, *args)
+        predicted = algorithm(train_set, test_set, *args)
         actual = [row[-1] for row in fold]
         accuracy = accuracy_metric(actual, predicted)
         scores.append(accuracy)
