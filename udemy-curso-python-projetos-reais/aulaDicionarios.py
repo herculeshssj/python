@@ -85,3 +85,15 @@ if __name__ == '__main__':
     d8.update(d2)
     print(d8)
 
+    # Dict comprehension
+    lista = [
+        ('chave1', 'valor1'),
+        ('chave2', 'valor2'),
+        ('chave3', 'valor3'),
+    ]
+
+    d10 = {x: y for x, y in lista}
+    print(d10)
+
+    d11 = {x: y.upper() for x, y in lista}
+    print(d11)
