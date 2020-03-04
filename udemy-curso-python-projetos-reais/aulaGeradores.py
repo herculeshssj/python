@@ -10,6 +10,7 @@ def gera():
         yield n
         time.sleep(0.1)
 
+
 def gera1():
     variavel = 'valor 1'
     yield variavel
@@ -17,6 +18,7 @@ def gera1():
     yield variavel
     variavel = 'valor 3'
     yield variavel
+
 
 if __name__ == '__main__':
     g = gera()
@@ -40,14 +42,12 @@ if __name__ == '__main__':
     print(sys.getsizeof(lista))
     print(type(lista))
 
+    # Lista
     lista = [x for x in range(1000)]
     print(type(lista))
 
+    # Gerador
     lista = (x for x in range(1000))
     print(sys.getsizeof(lista))
     print(type(lista))
     print(next(lista))
-
-
-
-
