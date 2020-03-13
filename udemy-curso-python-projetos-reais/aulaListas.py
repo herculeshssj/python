@@ -1,3 +1,5 @@
+from itertools import zip_longest, count
+
 """
 Listas em Python
 """
@@ -100,3 +102,24 @@ if __name__ == '__main__':
 
     ex5 = [v if v % 3 == 0 else -1 for v in l11]
     print(ex5)
+
+    # Zip e Zip_longest
+    cidades = ['Rio de Janeiro', 'São Paulo', 'Belo Horizonte', 'Vitória', 'Salvador']
+    estados = ['RJ', 'SP', 'MG', 'ES']
+    cidades_estados = zip(cidades, estados)
+    for valor in cidades_estados:
+        print(valor)
+
+    # A função zip() associa os elementos das lista até atingir o limite da menor lista. No exemplo acima a cidade
+    # 'Salvador' não entra no iterável cidades_estados
+
+    # Com zip_longest os elementos que não tem valor associado, eles são associados com o valor None
+    cidades_estados = zip_longest(cidades, estados, fillvalue='-')  # fillvalue permite informar o valor pra ficar no lugar do None
+
+    for valor in cidades_estados:
+        print(valor)
+
+    indice = count()
+    cidades_estados = zip(indice, cidades, estados)
+    for indice, estado, cidade in cidades_estados:
+        print(indice, estado, cidade)
