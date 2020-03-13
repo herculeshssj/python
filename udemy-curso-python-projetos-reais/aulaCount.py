@@ -4,7 +4,7 @@ Contadores infinitos
 A função count() retorna um iterador
 A função range() é um iterável
 """
-from itertools import count
+from itertools import count, combinations, permutations, product
 
 if __name__ == '__main__':
     print('Itertools - count()')
@@ -56,3 +56,28 @@ if __name__ == '__main__':
     lista = ['João', 'Maria', 'Luiz', 'Manoel']
     lista = zip(contador, lista)
     print(list(lista))
+    print()
+
+    """
+    Combination, Permutations e Product - Itertools
+
+    Combinação - Ordem não importa
+    Permutação - Ordem importa
+    Ambos não repetem valores úncis
+    Produto - Ordem importa e repete valores únicos
+    """
+
+    pessoas = ['João', 'Maria', 'Luiz', 'Manoel', 'André', 'Eduardo', 'Letícia', 'Jéssica']
+
+    for grupo in combinations(pessoas, 2):
+        print(grupo)
+
+    print()
+
+    for grupo in permutations(pessoas, 2):
+        print(grupo)
+
+    print()
+
+    for grupo in product(pessoas, repeat=2):
+        print(grupo)
