@@ -1,6 +1,8 @@
 """
-Map
+Map, Filter e Reduce
 """
+
+from functools import reduce
 
 produtos = [
     {'nome': 'p1', 'preco': 50.7},
@@ -55,3 +57,17 @@ if __name__ == '__main__':
     novos_produtos = map(aumenta_preco, produtos)
     for produto in novos_produtos:
         print(produto)
+
+    # Filter
+    nova_lista = filter(lambda x: x > 5, lista)
+    print(list(nova_lista))
+
+    # Filter também aceita uma função para realizar o filtro dos valores
+    # A função precisa retornar True ou False
+
+    # Reduce
+    # Reduce funciona como um acumulador
+    soma_lista = reduce(lambda ac, i: i + ac, lista, 0)
+    print(soma_lista)
+
+
