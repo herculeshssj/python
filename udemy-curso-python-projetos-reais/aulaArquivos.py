@@ -13,6 +13,7 @@ Modos de abertura dos arquivos
 """
 
 import os
+import json
 
 if __name__ == '__main__':
     print('Arquivos')
@@ -78,3 +79,34 @@ if __name__ == '__main__':
     # Apagar o arquivo do disco
     os.remove('abc.txt')
 
+    # Bônus - salvando dados em JSON
+    pessoa = {
+        'Pessoa 1': {
+            'nome': 'Luiz',
+            'idade': 30
+        },
+        'Pessoa 2' : {
+            'nome': 'Rose',
+            'idade': 25
+        }
+    }
+    print(pessoa)
+    pessoa_json = json.dumps(pessoa, indent=True)
+    print(pessoa_json)
+
+    # Salvando o JSON no arquivo
+    with open('abc.txt', 'w+') as file:
+        file.write(pessoa_json)
+
+    # Lendo o JSON do arquivo
+    with open('abc.txt', 'r') as file:
+        json_lido = file.read()
+        print(json_lido)
+        dicionario = json.loads(json_lido)
+        print(dicionario, type(dicionario))
+
+        # Lendo os valores do dicionário
+        for k, v in dicionario.items():
+            print(k)
+            for k1, v1 in v.items():
+                print(k1, v1)
