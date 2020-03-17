@@ -9,8 +9,11 @@ Veja todos os módulos padrão no Python em: https://docs.python.org/3/py-modind
 # import sys # Importa tudo do módulo sys
 # from sys import platform  # Importa somente a função do módulo
 from sys import platform as so  # Usando alias
-import random
+from random import randint
 from random import randrange, random  # importando mais de uma função
+
+import libs
+from libs.lib1Modulo import dobra_lista, multiplica, PI
 
 if __name__ == '__main__':
     print('Módulos')
@@ -19,4 +22,9 @@ if __name__ == '__main__':
     # print('Plataforma:', sys.platform)
     print('Plataforma:', so)
 
-    print(random.randint(0, 10))
+    print(randint(0, 10))
+
+    lista = [1, 2, 3, 4, 5]
+    print(dobra_lista(lista))
+    print(multiplica(lista))
+    print(PI)
