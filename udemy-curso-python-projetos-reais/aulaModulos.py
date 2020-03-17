@@ -15,6 +15,9 @@ from random import randrange, random  # importando mais de uma função
 import libs
 from libs.lib1Modulo import dobra_lista, multiplica, PI
 
+# Importando pacotes
+import package1Modulo.calculaPreco # pacote.modulo
+
 if __name__ == '__main__':
     print('Módulos')
 
@@ -28,3 +31,17 @@ if __name__ == '__main__':
     print(dobra_lista(lista))
     print(multiplica(lista))
     print(PI)
+
+    # Pacotes
+    preco = 49.90
+    preco_com_aumento = package1Modulo.calculaPreco.aumento(preco, 10)
+    print(preco_com_aumento)
+
+    preco_com_reducao = package1Modulo.calculaPreco.reducao(preco, 10)
+    print(preco_com_reducao)
+
+    preco_com_aumento = package1Modulo.calculaPreco.aumento(preco, 15, formata=True)
+    print(preco_com_aumento)
+
+    preco_com_reducao = package1Modulo.calculaPreco.reducao(preco, 15, formata=True)
+    print(preco_com_reducao)
