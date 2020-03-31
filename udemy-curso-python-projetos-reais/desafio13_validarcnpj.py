@@ -25,6 +25,15 @@ Recap.
 6543298765432 -> Segunro digito
 """
 
+def cnpj_e_sequencia(cnpj):
+    sequencia = cnpj[0] * len(cnpj)
+    if sequencia == cnpj:
+        return True
+    else:
+        return False
+
+
+
 import re
 
 if __name__ == '__main__':
@@ -60,6 +69,8 @@ if __name__ == '__main__':
         elif len(cnpj) != 14:
             print('CNPJ deve conter 14 números!')
             continue
+        elif cnpj_e_sequencia(cnpj):
+            print('CPF não pode conter números repetidos!')
         else:
             # CNPJ prontro para validar
             break
