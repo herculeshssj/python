@@ -19,3 +19,9 @@ p1.falar()
 print(f'Ano atual: {p1.ano_atual}')
 print(f'{p1.nome} nasceu em {p1.get_ano_nascimento()}')
 print(f'{p2.nome} nasceu em {p2.get_ano_nascimento()}')
+
+"""
+Métodos de classe
+"""
+p3 = Pessoa.create_pessoa_por_ano_nascimento('Maria', 1985)
+print(f'{p3.nome} tem {p3.idade} anos.')
