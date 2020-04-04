@@ -1,4 +1,5 @@
 from oo.pessoa import Pessoa
+from oo.produto import Produto
 
 p1 = Pessoa('Luiz', 32)
 p2 = Pessoa('João', 30)
@@ -32,3 +33,17 @@ Métodos estáticos
 """
 print(f'ID gerado: {Pessoa.gera_id()}')
 print(f'ID gerado: {p3.gera_id()}')
+
+
+""" 
+Métodos Getters e Setters 
+"""
+produto1 = Produto('Galão de água', 12.5)
+print(f'Produto: {produto1.nome}; preço: {produto1.preco}')
+produto1.desconto(10)
+print(f'Produto: {produto1.nome}; preço: {produto1.preco}')
+
+produto2 = Produto('Camiseta', '50')
+print(f'Produto: {produto2.nome}; preço: {produto2.preco}')
+produto2.desconto(15)
+print(f'Produto: {produto2.nome}; preço: {produto2.preco}')
