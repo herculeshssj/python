@@ -25,3 +25,10 @@ Métodos de classe
 """
 p3 = Pessoa.create_pessoa_por_ano_nascimento('Maria', 1985)
 print(f'{p3.nome} tem {p3.idade} anos.')
+
+
+"""
+Métodos estáticos
+"""
+print(f'ID gerado: {Pessoa.gera_id()}')
+print(f'ID gerado: {p3.gera_id()}')
