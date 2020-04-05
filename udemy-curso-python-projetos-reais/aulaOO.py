@@ -137,3 +137,12 @@ del cliente3
 print()
 
 print('#########################################################')
+
+"""
+Lembrete de OO:
+
+Associação - Usa
+Agregação - Tem
+Composição - É dono
+Herança - É
+"""
