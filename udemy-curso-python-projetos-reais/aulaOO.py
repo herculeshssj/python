@@ -1,3 +1,4 @@
+from oo.carrinho import CarrinhoDeCompras, ProdutoCarrinho
 from oo.escritor import MaquinaDeEscrever
 from oo.escritor import Caneta
 from oo.escritor import Escritor
@@ -86,3 +87,24 @@ escritor.ferramenta.escrever()
 del escritor
 print(caneta.marca)
 maquina.escrever()
+
+"""
+Agregação de objetos
+"""
+
+carrinho = CarrinhoDeCompras()
+
+p1 = ProdutoCarrinho('Camiseta', 50)
+p2 = ProdutoCarrinho('iPhone', 10000)
+p3 = ProdutoCarrinho('Caneca', 15)
+
+carrinho.inserir_produto(p1)
+carrinho.inserir_produto(p2)
+carrinho.inserir_produto(p3)
+carrinho.inserir_produto(p1)
+carrinho.inserir_produto(p1)
+carrinho.inserir_produto(p2)
+carrinho.inserir_produto(p3)
+
+carrinho.lista_produto()
+print(carrinho.soma_total())
