@@ -1,3 +1,6 @@
+from oo.escritor import MaquinaDeEscrever
+from oo.escritor import Caneta
+from oo.escritor import Escritor
 from oo.pessoa import Pessoa
 from oo.produto import Produto
 from oo.basededados import BaseDeDados
@@ -68,3 +71,18 @@ bd._dados = 'Outra coisa'
 bd.lista_clientes()
 print(bd._dados)
 print(bd._BaseDeDados__dados)
+
+""" 
+Associação de objetos
+"""
+
+escritor = Escritor('Joãozinho')
+caneta = Caneta('Bic')
+maquina = MaquinaDeEscrever()
+
+escritor.ferramenta = maquina
+escritor.ferramenta.escrever()
+
+del escritor
+print(caneta.marca)
+maquina.escrever()
