@@ -1,4 +1,5 @@
 from oo.cliente import Cliente
+from oo.aluno import Aluno
 from oo.carrinho import CarrinhoDeCompras, ProdutoCarrinho
 from oo.escritor import MaquinaDeEscrever
 from oo.escritor import Caneta
@@ -146,3 +147,10 @@ Agregação - Tem
 Composição - É dono
 Herança - É
 """
+
+"""
+Herança
+"""
+a1 = Aluno('João', 30) # Aluno herda da classe Pessoa
+print(f'Nome do aluno: {a1.nome}; Idade do aluno: {a1.idade}')
+a1.estudar()
