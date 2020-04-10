@@ -1,0 +1,19 @@
+<!-- /templates/index.html -->
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/style.css">
+        
+        <!-- importing JS code -->
+        <script src="/static/script.js"></script>
+    </head>
+    <body>
+        <h3><u>Hello World!</u></h3>
+
+        {% if gender == "Male" %}
+            <h3><u>Hello Mr. {{name}}!</u></h3>
+        {% else %}
+            <h3><u>Hello Mrs. {{name}}!</u></h3>
+        {% endif %}
+
+    </body>
+</html>
