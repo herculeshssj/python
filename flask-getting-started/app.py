@@ -49,4 +49,5 @@ def handle_data():
 
 # running the server
 if __name__ == '__main__':
-    app.run(debug=True)  # to allow for debugging and auto-reload
+    # to allow for debugging and auto-reload
+    app.run(debug=True, host='0.0.0.0')
