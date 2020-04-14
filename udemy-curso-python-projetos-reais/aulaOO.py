@@ -1,5 +1,5 @@
 from oo.cliente import Cliente
-from oo.aluno import Aluno
+from oo.aluno import Aluno, AlunoEstrangeiro
 from oo.carrinho import CarrinhoDeCompras, ProdutoCarrinho
 from oo.escritor import MaquinaDeEscrever
 from oo.escritor import Caneta
@@ -151,6 +151,14 @@ Herança - É
 """
 Herança
 """
-a1 = Aluno('João', 30) # Aluno herda da classe Pessoa
+a1 = Aluno('João', 30)  # Aluno herda da classe Pessoa
 print(f'Nome do aluno: {a1.nome}; Idade do aluno: {a1.idade}')
 a1.estudar()
+
+"""
+Sobrescrita de métodos
+"""
+a2 = Aluno('Jorge', 25)
+a3 = AlunoEstrangeiro('James', 27)
+a2.estudar()
+a3.estudar()
