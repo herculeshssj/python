@@ -1,6 +1,12 @@
 Flask Getting Started
 ---------------------
 
+Antes de executar o projeto, instale as dependências:
+
+```
+python -m pip install -r requirements.txt
+```
+
 Para executar o projeto, digite:
 
 ```
