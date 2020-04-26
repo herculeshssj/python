@@ -78,6 +78,14 @@ def update_oportunidade():
     return resp
 
 
+@app.route('/oportunidade/<id>', methods=['DELETE'])
+def delete_oportunidade(id):
+    mongo.db.selecoes.delete_one({'_id': ObjectId(id)})
+    resp = jsonify('Oportunidade apagada!')
+    resp.status_code = 200
+    return resp
+
+
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
