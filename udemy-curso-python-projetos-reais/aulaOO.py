@@ -7,6 +7,8 @@ from oo.escritor import Escritor
 from oo.pessoa import Pessoa
 from oo.produto import Produto
 from oo.basededados import BaseDeDados
+from oo.cp import ContaPoupanca
+from oo.cc import ContaCorrente
 
 p1 = Pessoa('Luiz', 32)
 p2 = Pessoa('João', 30)
@@ -162,3 +164,21 @@ a2 = Aluno('Jorge', 25)
 a3 = AlunoEstrangeiro('James', 27)
 a2.estudar()
 a3.estudar()
+print()
+
+"""
+Classes abstratas
+"""
+print('##########################')
+cp = ContaPoupanca(1111, 2222, 0)
+cp.depositar(10)
+cp.sacar(5)
+cp.sacar(5)
+cp.sacar(1)
+
+print('##########################')
+cc = ContaCorrente(agencia=1111, conta=3333, saldo=0, limite=500)
+cc.depositar(100)
+cc.sacar(250)
+cc.sacar(500)
+cc.depositar(1000)
