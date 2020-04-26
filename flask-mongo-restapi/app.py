@@ -50,26 +50,32 @@ def add_oportunidade():
     return resp
 
 
-"""
-@app.route('/add', methods=['POST'])
-def add_user():
+@app.route('/oportunidade', methods=['PUT'])
+def update_oportunidade():
     _json = request.json
-    _name = _json['name']
-    _email = _json['email']
-    _password = _json['pwd']
-    # validate the received values
-    if _name and _email and _password and request.method == 'POST':
-        # do not save password as a plain text
-        _hashed_password = generate_password_hash(_password)
-        # save details
-        id = mongo.db.user.insert(
-            {'name': _name, 'email': _email, 'pwd': _hashed_password})
-        resp = jsonify('User added successfully!')
-        resp.status_code = 200
-        return resp
+    _id = _json['_id']
+    _titulo = _json['titulo']
+    _descricao = _json['descricao']
+    _uf = _json['uf']
+    _periodo_inscricao = _json['periodoInscricao']
+    _link = _json['link']
+    _enviado = _json['enviado']
+    _hash = _json['hash']
+
+    mongo.db.selecoes.update_one(
+        {'_id': ObjectId(_id['$oid'] if '$oid' in _id else ObjectId(_id))},
+        {'$set': {'titulo': _titulo, 'descricao': _descricao, 'uf': _uf,
+                  'periodoInscricao': _periodo_inscricao, 'link': _link, 'enviado': _enviado, 'hash': _hash}}
+    )
+
+    resp = None
+    if id is not None:
+        resp = jsonify('Oportunidade atualizada!')
+        resp.status_code = 201
     else:
-        return not_found()
-"""
+        resp = jsonify('Erro ao atualizar!')
+        resp.status_code = 500
+    return resp
 
 
 @app.errorhandler(404)
