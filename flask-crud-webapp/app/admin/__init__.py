@@ -1,6 +1,6 @@
 # app/admin/__init__.py
 
 from . import views
-from flask import Blueprint
+#from flask import Blueprint
 
-admin = Blueprint('admin', __name__)
+#admin = Blueprint('admin', __name__)
