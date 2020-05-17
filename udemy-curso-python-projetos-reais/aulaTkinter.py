@@ -1,5 +1,14 @@
 """
 Aula no YouTube: https://www.youtube.com/watch?v=RX6TKO64YJ0
+
+Para criar o executável, instale primeiro a dependência:
+
+pip install pyinstaller
+
+Para gerar o arquivo .exe no Windows, execute o comando abaixo com o virtualenv
+ativo.
+
+pyinstaller aulaTkinter.py --onefile --noconsole
 """
 
 import tkinter as tk
@@ -44,7 +53,8 @@ if __name__ == '__main__':
         root,
         bd=5,
         relief='flat',
-        textvariable=validate_stringvar
+        textvariable=validate_stringvar,
+        highlightthickness=1
     )
     validate_entry.grid(row=1, column=1, pady=10)
 
@@ -62,7 +72,8 @@ if __name__ == '__main__':
         root,
         bd=5,
         relief='flat',
-        textvariable=generate_stringvar
+        textvariable=generate_stringvar,
+        highlightthickness=1
     )
     generate_entry.grid(row=2, column=1, pady=10)
 
