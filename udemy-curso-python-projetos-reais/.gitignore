@@ -6,3 +6,4 @@ abc.txt
 build
 dist
 *.spec
+*.db
