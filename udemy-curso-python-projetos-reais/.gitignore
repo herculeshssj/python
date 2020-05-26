@@ -6,4 +6,4 @@ abc.txt
 build
 dist
 *.spec
-*.db
+.mypy_cache/
