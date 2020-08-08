@@ -2,6 +2,7 @@
 Manipulando arquivos e diretórios
 """
 import os
+import shutil
 
 
 def formata_tamanho(tamanho):
@@ -78,3 +79,29 @@ if __name__ == '__main__':
 
     print()
     print(f'{contador} arquivo(S) encontrado(s).')
+    print()
+
+    caminho_original = r'C:\Users\hercu\OneDrive\Documentos\Gnucash'
+    caminho_novo = r'C:\Users\hercu\OneDrive\Documentos\Gnucash\novo'
+
+    try:
+        os.mkdir(caminho_novo)
+    except FileExistsError as fee:
+        print(f'Pasta {caminho_novo} já existe.')
+
+    for root, dirs, files in os.walk(caminho_novo):
+        for file in files:
+            file_path = os.path.join(caminho_novo, file)
+            if '.log' in file:
+                os.remove(file_path)
+
+    for root, dirs, files in os.walk(caminho_original):
+        for file in files:
+            old_file_path = os.path.join(root, file)
+            new_file_path = os.path.join(caminho_novo, file)
+            # shutil.move(old_file_path, new_file_path)  # move e/ou renomeia
+            # print(f'Arquivo {file} movido com sucesso!')
+
+            if '.log' in file:
+                shutil.copy(old_file_path, new_file_path)
+                print(f'Arquivo {file} copiado com sucesso!')
