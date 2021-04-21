@@ -1,9 +1,0 @@
-.idea/
-.vscode/
-venv/
-__pycache__/
-abc.txt
-build
-dist
-*.spec
-.mypy_cache/
