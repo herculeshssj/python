@@ -14,6 +14,7 @@ if __name__ == '__main__':
     Operadores relacionais
     == > >= < <= !=
     """
+    print('***** Operadores relacionais *****')
     # Igualdade
     print(f'Igualdade: 2 == 2 -> {2 == 2}')
 
@@ -47,3 +48,37 @@ if __name__ == '__main__':
         print(f'{nome} pode pegar o empréstimo.')
     else:
         print(f'{nome} não pode pegar o empréstimo.')
+
+
+    """
+    Operadores lógicos
+    and, or, not
+    in, not in
+    """
+    print()
+    print('***** Operadores lógicos *****')
+    idade_menor = 20 # muito jovem
+    idade_maior = 40 # passo da idade
+    if idade >= idade_menor and idade <= idade_maior:
+        print(f'{nome} pode pegar o empréstimo.')
+    else:
+        print(f'{nome} NÃO pode pegar o empréstimo.')
+
+    # not é usado para verificar variáveis vazias
+
+    # in e not in
+    if 'u' in nome:
+        print(f'Existe a letra "u" em {nome}')
+    else:
+        print(f'Não existe a letra "u" em {nome}')
+
+    print()
+    print('##### Exercício #####')
+    usuario = input('Nome de usuário: ')
+    senha = input('Senha do usuário: ')
+    usuario_bd = 'jose'
+    senha_bd = '123456'
+    if usuario_bd == usuario and senha_bd == senha:
+        print('Você está logado no sistema!')
+    else:
+        print('Usuário ou senha inválidos!')
