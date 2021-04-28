@@ -21,8 +21,13 @@ if __name__ == '__main__':
 
     print('***** Exercício 1 *****')
 
-
     print('***** Exercício 2 *****')
 
-
     print('***** Exercício 3 *****')
+    nome_usuario = input('Digite seu nome: ')
+    if len(nome_usuario) <= 4:
+        print('Seu nome é curto.')
+    elif len(nome_usuario) > 4 and len(nome_usuario) <= 6:
+        print('Seu nome é normal.')
+    else:
+        print('Seu nome é muito grande.')
