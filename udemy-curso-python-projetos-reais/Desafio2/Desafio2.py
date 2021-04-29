@@ -36,10 +36,10 @@ if __name__ == '__main__':
     hora_atual = input('Informe a hora atual (0-23): ')
     if is_int(hora_atual):
         hora_atual = int(hora_atual)
-        if hora_atual >=0 and hora_atual <= 23:
-            if hora_atual >=0 and hora_atual <=11:
+        if 0 <= hora_atual <= 23:
+            if 0 <= hora_atual <= 11:
                 print('Bom Dia!')
-            elif hora_atual > 11 and hora_atual <=17:
+            elif 11 < hora_atual <= 17:
                 print('Boa Tarde!')
             else:
                 print('Boa Noite!')
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     nome_usuario = input('Digite seu nome: ')
     if len(nome_usuario) <= 4:
         print('Seu nome é curto.')
-    elif len(nome_usuario) > 4 and len(nome_usuario) <= 6:
+    elif 4 < len(nome_usuario) <= 6:
         print('Seu nome é normal.')
     else:
         print('Seu nome é muito grande.')
