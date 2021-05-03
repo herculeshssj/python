@@ -76,3 +76,19 @@ if __name__ == '__main__':
             break
         else:
             print('Operador inválido!')
+
+    print()
+
+    # While / Else
+    # Contadores
+    # Acumuladores
+    print('*** While/Else ***')
+    contador = 1
+    acumulador = 1
+    while contador <= 10:
+        print(contador, acumulador)
+
+        acumulador = acumulador + contador
+        contador += 1
+    else: # O Else só é executado quando a condićão do while é falsa.
+        print('Cheguei no Else')
