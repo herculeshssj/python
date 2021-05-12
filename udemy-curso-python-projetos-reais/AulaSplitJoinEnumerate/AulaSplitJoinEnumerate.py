@@ -71,3 +71,14 @@ if __name__ == '__main__':
     # Desempacotando a lista usando enumerate()
     for i, v in enumerate(lista_10):
         print(f'Índice: {i} Valor: {v}')
+
+    # Enumerate - tira dúvidas
+    # Lista dentro de lista = lista de duas dimensões
+    print(f'Elemento do índice 1 da lista 0: {lista_10[0][1]}')  # Elemento do índice 1 da lista 0
+
+    # Lista enumerada
+    lista_enumerada = enumerate(lista_10)
+    print(list(lista_enumerada))
+
+    for i, v in enumerate(range(1, 11)):
+        print(f'Sequencial: {i}, Valor : {v}')
