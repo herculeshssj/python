@@ -20,6 +20,20 @@ if __name__ == '__main__':
     print('É maior de idade:', e_maior)
 
     # Exercício
-    print(nome, 'tem', idade, 'e seu IMC é', peso / (altura**2))
+    print(nome, 'tem', idade, 'e seu IMC é', peso / (altura ** 2))
 
-
+    print()
+    # Inversão de valores entre variáveis
+    x = 10  # Luiz
+    y = 'Luiz'  # 10
+    """
+    Troca de valores nas linguagens de programaćão
+    z = x
+    x = y
+    y = z
+    """
+    # Troca de valores no Python
+    print('Troca de valores de variáveis')
+    print(f'Valor de X: {x}; Valor de Y: {y}')
+    x, y = y, x
+    print(f'Valor de X: {x}; Valor de Y: {y}')
