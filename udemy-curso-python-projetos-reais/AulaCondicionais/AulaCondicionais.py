@@ -82,3 +82,25 @@ if __name__ == '__main__':
         print('Você está logado no sistema!')
     else:
         print('Usuário ou senha inválidos!')
+
+    print()
+    # Expressão condiciional com operador OR
+    print('Expressão condiciional com operador OR')
+    nome = input('Qual o seu nome? ')
+    if nome:
+        print(nome)
+    else:
+        print('Você não digitou nada! =(')
+
+    # Usando OR
+    print(nome or 'Você não digitou nada! =(')
+
+    a = 0
+    b = None
+    c = False
+    d = []
+    e = {}
+    f = 22
+    g = 'Luiz'
+    variavel = a or b or c or d or e or f or g
+    print(f'Valor de variável: {variavel}')
