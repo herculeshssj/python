@@ -20,3 +20,4 @@ Digito 1 = 0            # Dígito 2 = 9
 
 if __name__ == '__main__':
     print('*** Desafio 4 - Validaćão de CPF')
+
