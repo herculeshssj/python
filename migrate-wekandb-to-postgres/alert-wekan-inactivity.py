@@ -110,6 +110,9 @@ if __name__ == '__main__':
         quant_registros += 1
         mensagem_discord = mensagem_discord + '* ' + atividade['boardName'][0] + ' -> ' + atividade['_id'][0] + '\n'
 
+    # Impressão no console, para fins de debug.
+    print(mensagem_discord)
+
     # Envia a mensagem de aviso
     if quant_registros == 0:
         sys.exit(0)
@@ -129,4 +132,5 @@ if __name__ == '__main__':
     data_json = json.dumps(data)
     headers = {'Content-type': 'application/json'}
     response = requests.post(url=url_api, data=data_json, headers=headers)
-    print(response.json())
+    
+    print(response.json()) # impressão no console, para fins de debug
