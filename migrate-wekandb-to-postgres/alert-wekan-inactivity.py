@@ -1,6 +1,7 @@
+import sys
+import requests, json
 from pymongo import MongoClient
-from pprint import pprint
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from discord_webhook import DiscordWebhook
 
 if __name__ == '__main__':
@@ -101,11 +102,31 @@ if __name__ == '__main__':
             }
         ])
 
+    quant_registros = 0
+
     # Constrói a mensagem
     mensagem_discord = 'Nenhuma atividade foi detectadas nos seguintes quadros:\n'
     for atividade in inercia:
+        quant_registros += 1
         mensagem_discord = mensagem_discord + '* ' + atividade['boardName'][0] + ' -> ' + atividade['_id'][0] + '\n'
 
     # Envia a mensagem de aviso
-    webhook = DiscordWebhook(url=discord_url, content=mensagem_discord)
-    response = webhook.execute()
+    if quant_registros == 0:
+        sys.exit(0)
+    else:
+        webhook = DiscordWebhook(url=discord_url, content=mensagem_discord)
+        response = webhook.execute()
+
+    # Integração com o app Outsystems 'Fila do Pão' que informa as pessoas que preciso responder.
+    url_api = 'https://personal-8gsrdrii.outsystemscloud.com/filadopaoapi/rest/v1/novo'
+
+    data = {
+        "Cliente": "Wekan",
+        "Pedido": "Verificar os quadros e raias sem atividade no Wekan.",
+        "PrazoAtendimentoId": 6
+    }
+
+    data_json = json.dumps(data)
+    headers = {'Content-type': 'application/json'}
+    response = requests.post(url=url_api, data=data_json, headers=headers)
+    print(response.json())
