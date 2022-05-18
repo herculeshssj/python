@@ -1,8 +1,32 @@
 import sys
 import requests, json
+import sqlite3
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 from discord_webhook import DiscordWebhook
+
+
+def inicializa_base_sqlite():
+    # Conecta na base SQlite
+    conn = sqlite3.connect('filaespera.db')
+
+    # Objeto cursor
+    cursor = conn.cursor()
+
+    # Cria a tabela caso não exista
+    query = """
+        create table if not exists fila_espera (
+            id text primary key not null,
+            cliente text not null,
+            pedido text not null
+        )
+    """
+    cursor.execute(query)
+
+    # Commita as alterações e encerra a conexão
+    conn.commit()
+    conn.close()
+
 
 if __name__ == '__main__':
     # Conecta no MongoDB
@@ -122,6 +146,13 @@ if __name__ == '__main__':
     Fila de espera para atendimento
     """
 
+    # Inicializa a base SQlite
+    inicializa_base_sqlite()
+
+    # Declaração dos objetos da base
+    conn = sqlite3.connect('filaespera.db')
+    cursor = conn.cursor()
+
     limite_espera = datetime.today() - timedelta(hours=24)
 
     # Busca os solicitantes que estão na fila de espera
@@ -138,6 +169,7 @@ if __name__ == '__main__':
                 }
             },
             {
+                "_id": 1,
                 "title": 1,
                 "requestedBy" : 1
             }
@@ -148,27 +180,35 @@ if __name__ == '__main__':
 
     # Itera a fila de espera para registrar no aplicativo
     for cliente in fila_espera:
-        data = {
-            "Cliente": cliente['requestedBy'],
-            "Pedido": cliente['title'],
-            "PrazoAtendimentoId": 14
-        }
+        # Verifica se o cliente já entrou na fila de espera
+        cursor = conn.execute("select * from fila_espera where id = '" + cliente['_id'] + "'")
+        if not cursor.fetchall():
+            # Cadastra o cliente na base
+            queryInsert = ("insert into fila_espera (id, cliente, pedido) values (:ID, :CLIENTE, :PEDIDO);")
+            paramsInsert = {
+                'ID': cliente['_id'],
+                'CLIENTE': cliente['requestedBy'],
+                'PEDIDO': cliente['title']
+            }
+            conn.execute(queryInsert, paramsInsert)
+            conn.commit()
 
-        # Prepara a requisição
-        data_json = json.dumps(data)
-        headers = {'Content-type': 'application/json'}
+            # Prepara a requisição
+            data = {
+                "Cliente": cliente['requestedBy'],
+                "Pedido": cliente['title'],
+                "PrazoAtendimentoId": 14
+            }
+            data_json = json.dumps(data)
+            headers = {'Content-type': 'application/json'}
 
-        # Registra o cliente na aplicação
-        response = requests.post(url=url_api, data=data_json, headers=headers)
+            # Registra o cliente na aplicação
+            response = requests.post(url=url_api, data=data_json, headers=headers)
 
-        print(response.json()) # impressão no console, para fins de debug
-        
+            print(response.json()) # impressão no console, para fins de debug'
+        else:
+            print('Cliente ' ,cliente['requestedBy'], ' está na fila de espera.')
 
-    
 
-    
-
-    
-    
-    
-    
+    # Encerra a conexão com a base SQlite
+    conn.close()
