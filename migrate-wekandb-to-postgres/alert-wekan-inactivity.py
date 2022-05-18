@@ -105,32 +105,70 @@ if __name__ == '__main__':
     quant_registros = 0
 
     # Constrói a mensagem
-    mensagem_discord = 'Nenhuma atividade foi detectadas nos seguintes quadros:\n'
+    mensagem_discord = 'Nenhuma atividade foi detectada nos seguintes quadros:\n'
     for atividade in inercia:
         quant_registros += 1
         mensagem_discord = mensagem_discord + '* ' + atividade['boardName'][0] + ' -> ' + atividade['_id'][0] + '\n'
 
-    # Impressão no console, para fins de debug.
-    print(mensagem_discord)
 
     # Envia a mensagem de aviso
-    if quant_registros == 0:
-        sys.exit(0)
-    else:
+    if quant_registros != 0:
+        print(mensagem_discord) # Impressão no console, para fins de debug.
         webhook = DiscordWebhook(url=discord_url, content=mensagem_discord)
         response = webhook.execute()
+        
+
+    """
+    Fila de espera para atendimento
+    """
+
+    limite_espera = datetime.today() - timedelta(hours=24)
+
+    # Busca os solicitantes que estão na fila de espera
+    fila_espera = db.cards.find(
+            {
+                "archived" : False,
+                "requestedBy": {
+                    "$not" : {
+                        "$eq" : ""
+                    }
+                },
+                "dateLastActivity": {
+                    "$lt": limite_espera
+                }
+            },
+            {
+                "title": 1,
+                "requestedBy" : 1
+            }
+        )
 
     # Integração com o app Outsystems 'Fila do Pão' que informa as pessoas que preciso responder.
     url_api = 'https://personal-8gsrdrii.outsystemscloud.com/filadopaoapi/rest/v1/novo'
 
-    data = {
-        "Cliente": "Wekan",
-        "Pedido": "Verificar os quadros e raias sem atividade no Wekan.",
-        "PrazoAtendimentoId": 6
-    }
+    # Itera a fila de espera para registrar no aplicativo
+    for cliente in fila_espera:
+        data = {
+            "Cliente": cliente['requestedBy'],
+            "Pedido": cliente['title'],
+            "PrazoAtendimentoId": 14
+        }
 
-    data_json = json.dumps(data)
-    headers = {'Content-type': 'application/json'}
-    response = requests.post(url=url_api, data=data_json, headers=headers)
+        # Prepara a requisição
+        data_json = json.dumps(data)
+        headers = {'Content-type': 'application/json'}
+
+        # Registra o cliente na aplicação
+        response = requests.post(url=url_api, data=data_json, headers=headers)
+
+        print(response.json()) # impressão no console, para fins de debug
+        
+
     
-    print(response.json()) # impressão no console, para fins de debug
+
+    
+
+    
+    
+    
+    
