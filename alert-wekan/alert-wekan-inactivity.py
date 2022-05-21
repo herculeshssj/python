@@ -4,7 +4,13 @@ from pymongo import MongoClient
 from datetime import datetime, timedelta
 from discord_webhook import DiscordWebhook
 
+"""
+Por hora só ficarei com o alerta de raias inativas.
+Posteriormente verei os alertas para as pessoas que
+estou devendo uma resposta.
+"""
 
+"""
 def inicializa_base_sqlite():
     # Conecta na base SQlite
     conn = sqlite3.connect('filaespera.db')
@@ -13,19 +19,19 @@ def inicializa_base_sqlite():
     cursor = conn.cursor()
 
     # Cria a tabela caso não exista
-    query = """
+    query = ""
         create table if not exists fila_espera (
             id text primary key not null,
             cliente text not null,
             pedido text not null
         )
-    """
+    ""
     cursor.execute(query)
 
     # Commita as alterações e encerra a conexão
     conn.commit()
     conn.close()
-
+"""
 
 if __name__ == '__main__':
     # Conecta no MongoDB
@@ -146,7 +152,7 @@ if __name__ == '__main__':
 
     """
     Fila de espera para atendimento
-    """
+    ""
 
     # Inicializa a base SQlite
     inicializa_base_sqlite()
@@ -215,3 +221,5 @@ if __name__ == '__main__':
 
     # Encerra a conexão com a base SQlite
     conn.close()
+
+    """
