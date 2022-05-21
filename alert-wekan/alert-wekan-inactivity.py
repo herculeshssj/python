@@ -1,4 +1,3 @@
-import sys
 import requests, json
 import sqlite3
 from pymongo import MongoClient
@@ -116,12 +115,15 @@ if __name__ == '__main__':
             {
                 "$group": {
                     "_id": "$swimlane_table.title",
-                    "boardName": { "$first": "$board_table.title"}
+                    "boardName": { "$last": "$board_table.title"},
+                    "quantidade": {
+                        "$count": {}
+                    }
                 }
             },
             {
                 "$sort": {
-                    "swimlane_table.title": 1
+                    "quantidade": 1
                 }
             }
         ])
@@ -132,7 +134,7 @@ if __name__ == '__main__':
     mensagem_discord = 'Nenhuma atividade foi detectada nos seguintes quadros:\n'
     for atividade in inercia:
         quant_registros += 1
-        mensagem_discord = mensagem_discord + '* ' + atividade['boardName'][0] + ' -> ' + atividade['_id'][0] + '\n'
+        mensagem_discord = mensagem_discord + str(quant_registros) + '. ' + atividade['boardName'][0] + ' -> ' + atividade['_id'][0] + '\n'
 
 
     # Envia a mensagem de aviso
@@ -206,6 +208,7 @@ if __name__ == '__main__':
             response = requests.post(url=url_api, data=data_json, headers=headers)
 
             print(response.json()) # impressão no console, para fins de debug'
+            print('Cliente ' ,cliente['requestedBy'], ' incluído na fila de espera.')
         else:
             print('Cliente ' ,cliente['requestedBy'], ' está na fila de espera.')
 
