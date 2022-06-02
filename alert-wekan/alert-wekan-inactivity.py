@@ -142,13 +142,25 @@ if __name__ == '__main__':
         quant_registros += 1
         mensagem_discord = mensagem_discord + str(quant_registros) + '. ' + atividade['boardName'][0] + ' -> ' + atividade['_id'][0] + '\n'
 
+    # Busca os cartões não arquivados em todos os quadros
+    cartoes_nao_arquivados = db.cards.find({
+            "archived": False,
+            "userId": {
+                "$in": ["ng6ezgdC555We6fvr", "pk6eq8m7oqndKWdpe"]
+            }
+        })
+    quant_cartoes_pendentes = 0
+    for cartao in cartoes_nao_arquivados:
+        quant_cartoes_pendentes += 1
+
+    # Adiciona a quantidade de cartões pendentes na mensagem
+    mensagem_discord = mensagem_discord + '\n' + 'Atualmente existem ' + str(quant_cartoes_pendentes) + ' cartões pendentes de resolução.'
 
     # Envia a mensagem de aviso
     if quant_registros != 0:
         print(mensagem_discord) # Impressão no console, para fins de debug.
         webhook = DiscordWebhook(url=discord_url, content=mensagem_discord)
         response = webhook.execute()
-        
 
     """
     Fila de espera para atendimento
