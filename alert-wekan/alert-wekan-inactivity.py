@@ -49,7 +49,16 @@ if __name__ == '__main__':
     # Consulta as raias em movimento
     raias_em_movimento = db.activities.aggregate([
             {
+                "$lookup": {
+                    "from": "swimlanes" ,
+                    "localField": "swimlaneId",
+                    "foreignField": "_id",
+                    "as": "swimlane_table"
+                }
+            },
+            {
                 "$match": {
+                    "swimlane_table.archived": False,
                     "userId": { 
                         "$in": ["ng6ezgdC555We6fvr", "pk6eq8m7oqndKWdpe"]
                     },
@@ -97,12 +106,21 @@ if __name__ == '__main__':
                 }
             },
             {
+                "$lookup": {
+                    "from": "cards",
+                    "localField": "cardId",
+                    "foreignField": "_id",
+                    "as": "card_table"
+                }
+            },
+            {
                 "$match": {
                     "userId": {
                         "$in": ["ng6ezgdC555We6fvr", "pk6eq8m7oqndKWdpe"]
                     },
                     "swimlane_table.archived": False,
                     "board_table.archived": False,
+                    "card_table.archived": False,
                     "board_table.title": {
                         "$ne": "Templates"
                     },
