@@ -72,5 +72,5 @@ sos==4.1
 soupsieve==2.2
 systemd-python==234
 Tempita==0.5.1
-urllib3==1.25.10
+urllib3==1.26.5
 vboxapi==1.0
