@@ -1,3 +1,15 @@
+Initialize environment:
+
+```
+python -m venv venv
+```
+
+Start Python environment:
+
+```
+ ./venv/bin/activate 
+```
+
 Install dependencies:
 
 ```
