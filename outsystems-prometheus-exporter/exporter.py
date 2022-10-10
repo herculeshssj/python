@@ -2,7 +2,7 @@
 
 import os
 import time
-from prometheus_client import start_http_server, Gauge, Enum
+from prometheus_client import start_http_server, Gauge, Info
 import requests
 
 class AppMetrics:
@@ -16,10 +16,8 @@ class AppMetrics:
         self.polling_interval_seconds = polling_interval_seconds
 
         # Prometheus metrics to collect
-        self.current_requests = Gauge("app_requests_current", "Current requests")
-        self.pending_requests = Gauge("app_requests_pending", "Pending requests")
-        self.total_uptime = Gauge("app_uptime", "Uptime")
-        self.health = Enum("app_health", "Health", states=["healthy", "unhealthy"])
+        self.outsystems_space_used = Gauge("outsystems_space_used", "Space Used")
+
 
     def run_metrics_loop(self):
         """Metrics fetching loop"""
@@ -35,20 +33,19 @@ class AppMetrics:
         """
 
         # Fetch raw status data from the application
-        resp = requests.get(url=f"http://localhost:{self.app_port}/status")
+        resp = requests.get(url=f"https://hss.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")        
+
         status_data = resp.json()
 
         # Update Prometheus metrics with application metrics
-        self.current_requests.set(status_data["current_requests"])
-        self.pending_requests.set(status_data["pending_requests"])
-        self.total_uptime.set(status_data["total_uptime"])
-        self.health.state(status_data["health"])
+        self.outsystems_space_used.set(status_data["SpaceUsed"])
 
+        
 def main():
     """Main entry point"""
 
     polling_interval_seconds = int(os.getenv("POLLING_INTERVAL_SECONDS", "5"))
-    app_port = int(os.getenv("APP_PORT", "80"))
+    app_port = int(os.getenv("APP_PORT", "9877"))
     exporter_port = int(os.getenv("EXPORTER_PORT", "9877"))
 
     app_metrics = AppMetrics(
