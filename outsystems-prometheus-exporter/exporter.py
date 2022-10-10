@@ -16,7 +16,10 @@ class AppMetrics:
         self.polling_interval_seconds = polling_interval_seconds
 
         # Prometheus metrics to collect
-        self.outsystems_space_used = Gauge("outsystems_space_used", "Space Used")
+        self.outsystems_official_space_used = Gauge("outsystems_official_space_used", "Space Used")
+        self.outsystems_production_space_used = Gauge("outsystems_production_space_used", "Space Used")
+        self.outsystems_test_space_used = Gauge("outsystems_test_space_used", "Space Used")
+        self.outsystems_dev_space_used = Gauge("outsystems_dev_space_used", "Space Used")
 
 
     def run_metrics_loop(self):
@@ -32,13 +35,35 @@ class AppMetrics:
         new values.
         """
 
-        # Fetch raw status data from the application
-        resp = requests.get(url=f"https://hss.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")        
+        try:
+            # Fetch raw status data from the application
+            resp = requests.get(url=f"https://hss.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")        
+            status_data = resp.json()
+            # Update Prometheus metrics with application metrics
+            self.outsystems_production_space_used.set(status_data["SpaceUsed"])
+        except:
+            self.outsystems_production_space_used.set(0.0)
 
-        status_data = resp.json()
+        try:
+            resp = requests.get(url=f"https://personal-8gsrdrii.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")
+            status_data = resp.json()
+            self.outsystems_official_space_used.set(status_data["SpaceUsed"])
+        except:
+            self.outsystems_official_space_used.set(0.0)
 
-        # Update Prometheus metrics with application metrics
-        self.outsystems_space_used.set(status_data["SpaceUsed"])
+        try:
+            resp = requests.get(url=f"https://personal-kzik9eqs.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")
+            status_data = resp.json()
+            self.outsystems_test_space_used.set(status_data["SpaceUsed"])
+        except:
+            self.outsystems_test_space_used.set(0.0)
+
+        try:
+            resp = requests.get(url=f"https://personal-tnshps7f.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")
+            status_data = resp.json()
+            self.outsystems_dev_space_used.set(status_data["SpaceUsed"])
+        except:
+            self.outsystems_dev_space_used.set(0.0)
 
         
 def main():
