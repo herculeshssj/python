@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-alpine
 
 WORKDIR /usr/src/app
 
@@ -7,6 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENV FLASK_CONFIG=production
-
-CMD [ "python", "./alert-wekan-inactivity.py" ]
+CMD [ "python", "./exporter.py" ]

@@ -31,5 +31,5 @@ docker build -t outsystems-exporter:latest .
 Docker run:
 
 ```
-docker run --rm -it -p 9877:9877 outsystems-exporter:latest 
+docker run -d -p 9877:9877 outsystems-exporter:latest 
 ```
