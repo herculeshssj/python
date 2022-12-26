@@ -12,7 +12,8 @@ try:
     blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
     # Create a unique name for the container
-    container_name = 'herculeshssj-vm-03'
+    #container_name = 'herculeshssj-vm-03'
+    container_name = os.getenv('AZURE_STORAGE_CONTAINER_NAME')
 
     # Set a local directory to hold blob data
     local_path = "/data"
