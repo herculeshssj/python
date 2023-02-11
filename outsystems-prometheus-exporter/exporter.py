@@ -2,6 +2,7 @@
 
 import os
 import time
+import datetime
 from prometheus_client import start_http_server, Gauge, Info
 import requests
 
@@ -49,12 +50,15 @@ class AppMetrics:
         except:
             self.outsystems_official_space_used.set(0.0)
 
+        now = datetime.datetime.now()
+        print("Metrics fetched at", now.strftime("%Y-%m-%d %H:%M:%S"))
+
 
         
 def main():
     """Main entry point"""
 
-    polling_interval_seconds = int(os.getenv("POLLING_INTERVAL_SECONDS", "5"))
+    polling_interval_seconds = int(os.getenv("POLLING_INTERVAL_SECONDS", "10"))
     app_port = int(os.getenv("APP_PORT", "9877"))
     exporter_port = int(os.getenv("EXPORTER_PORT", "9877"))
 
