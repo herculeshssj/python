@@ -13,7 +13,7 @@ estou devendo uma resposta.
 
 if __name__ == '__main__':
     # Conecta no MongoDB
-    client = MongoClient('mongodb://root:root@localhost:27017')
+    client = MongoClient(os.getenv('MONGO_URL'))
 
     #discord_url = ''
     discord_url = os.getenv('DISCORD_URL')

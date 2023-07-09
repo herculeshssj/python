@@ -31,5 +31,5 @@ docker build -t alert-wekan:latest .
 Docker run:
 
 ```
-docker run --rm -it --net=host -e DISCORD_URL="<enter with discord webhook url>" alert-wekan:latest 
+docker run --rm -it --net=host -e MONGO_URL="mongodb://root:root@localhost:27017" -e DISCORD_URL="<enter with discord webhook url>" alert-wekan:latest
 ```
