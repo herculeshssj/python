@@ -1,5 +1,6 @@
 import requests, json
 import sqlite3
+import os, sys
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 from discord_webhook import DiscordWebhook
@@ -14,14 +15,15 @@ if __name__ == '__main__':
     # Conecta no MongoDB
     client = MongoClient('mongodb://root:root@localhost:27017')
 
-    discord_url = ''
+    #discord_url = ''
+    discord_url = os.getenv('DISCORD_URL')
 
     # Seta a base de dados
     db = client.wekan
 
     # Seta as variáveis
     to_date = datetime.today()
-    from_date = datetime.today() - timedelta(hours=72)
+    from_date = datetime.today() - timedelta(hours=24)
 
     # Consulta as raias em movimento
     raias_em_movimento = db.activities.aggregate([
@@ -37,7 +39,7 @@ if __name__ == '__main__':
                 "$match": {
                     "swimlane_table.archived": False,
                     "userId": { 
-                        "$in": ["ng6ezgdC555We6fvr", "pk6eq8m7oqndKWdpe"]
+                        "$in": ["Ka4PjcMopQ4E5mNWv"]
                     },
                     "createdAt" : {
                         "$gte": from_date,
@@ -93,7 +95,7 @@ if __name__ == '__main__':
             {
                 "$match": {
                     "userId": {
-                        "$in": ["ng6ezgdC555We6fvr", "pk6eq8m7oqndKWdpe"]
+                        "$in": ["Ka4PjcMopQ4E5mNWv"]
                     },
                     "swimlane_table.archived": False,
                     "board_table.archived": False,
@@ -141,7 +143,7 @@ if __name__ == '__main__':
     cartoes_nao_arquivados = db.cards.find({
             "archived": False,
             "userId": {
-                "$in": ["ng6ezgdC555We6fvr", "pk6eq8m7oqndKWdpe"]
+                "$in": ["Ka4PjcMopQ4E5mNWv"]
             }
         })
     quant_cartoes_pendentes = 0

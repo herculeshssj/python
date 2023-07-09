@@ -1,3 +1,21 @@
+Inicialize o ambiente de desenvolvimento com o seguinte comando:
+
+```
+python -m venv venv
+```
+
+Logo em seguida, ative o ambiente com o seguinte comando:
+
+```
+./venv/Scripts/activate
+```
+
+No Linux, ative o ambiente com o seguinte comando:
+
+```
+./venv/bin/activate
+```
+
 Install dependencies:
 
 ```
@@ -13,5 +31,5 @@ docker build -t alert-wekan:latest .
 Docker run:
 
 ```
-docker run --rm -it --net=host alert-wekan:latest 
+docker run --rm -it --net=host -e DISCORD_URL="<enter with discord webhook url>" alert-wekan:latest 
 ```
