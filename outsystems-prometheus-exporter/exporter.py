@@ -20,8 +20,8 @@ class AppMetrics:
         self.outsystems_official_space_used = Gauge("outsystems_official_space_used", "Space Used")
         self.outsystems_production_space_used = Gauge("outsystems_production_space_used", "Space Used")
 
-        self.outsystems_official_uptime_server = Info("outsystems_official_uptime_server", "Uptime")
-        self.outsystems_production_uptime_server = Info("outsystems_production_uptime_server", "Uptime")
+        self.outsystems_official_uptime_server = Gauge("outsystems_official_uptime_server", "Uptime")
+        self.outsystems_production_uptime_server = Gauge("outsystems_production_uptime_server", "Uptime")
 
 
     def run_metrics_loop(self):
@@ -56,9 +56,9 @@ class AppMetrics:
         try:
             resp = requests.get(url=f"https://personal-8gsrdrii.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetUptime")
             status_data = resp.json()
-            self.outsystems_official_uptime_server.info(status_data["UptimeServer"])
+            self.outsystems_official_uptime_server.set(status_data["UptimeServer"])
         except:
-            self.outsystems_official_uptime_server.info({'uptime':status_data["UptimeServer"],'environment':status_data["Environment"]})
+            self.outsystems_official_uptime_server.set(0.0)
 
         now = datetime.datetime.now()
         print("Metrics fetched at", now.strftime("%Y-%m-%d %H:%M:%S"))
