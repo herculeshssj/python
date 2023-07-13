@@ -47,6 +47,13 @@ class AppMetrics:
             self.outsystems_production_space_used.set(0.0)
 
         try:
+            resp = requests.get(url=f"https://hss.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetUptime")
+            status_data = resp.json()
+            self.outsystems_production_uptime_server.set(status_data["UptimeServer"])
+        except:
+            self.outsystems_production_uptime_server.set(0.0)
+
+        try:
             resp = requests.get(url=f"https://personal-8gsrdrii.outsystemscloud.com/DBSpaceMonitor/rest/v1/GetSpace")
             status_data = resp.json()
             self.outsystems_official_space_used.set(status_data["SpaceUsed"])
@@ -68,7 +75,7 @@ class AppMetrics:
 def main():
     """Main entry point"""
 
-    polling_interval_seconds = int(os.getenv("POLLING_INTERVAL_SECONDS", "10"))
+    polling_interval_seconds = int(os.getenv("POLLING_INTERVAL_SECONDS", "60"))
     app_port = int(os.getenv("APP_PORT", "9877"))
     exporter_port = int(os.getenv("EXPORTER_PORT", "9877"))
 
