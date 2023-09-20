@@ -6,11 +6,13 @@ from discord_webhook import DiscordWebhook
 
 """
 Alerta via Discord quando a conexão com o Raspberry PI caiu
+
+Dica obtida de https://stackoverflow.com/questions/4760215/running-shell-command-and-capturing-the-output
 """
 
 if __name__ == '__main__':
     # Executa o comando nc
-    result = subprocess.run(['nc', '-z', '-v', '192.168.66.2', '2000'], stdout=subprocess.PIPE)
+    result = subprocess.run(['nc', '-z', '-v', '192.168.66.2', '1000'], stdout=subprocess.PIPE)
     print(result)
 
     """
