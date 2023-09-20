@@ -1,5 +1,6 @@
 import requests, json
 import os, sys
+import subprocess
 from datetime import datetime, timedelta
 from discord_webhook import DiscordWebhook
 
@@ -8,7 +9,11 @@ Alerta via Discord quando a conexão com o Raspberry PI caiu
 """
 
 if __name__ == '__main__':
-    print('Hello World')
+    # Executa o comando nc
+    result = subprocess.run(['nc', '-z', '-v', '192.168.66.2', '2000'], stdout=subprocess.PIPE)
+    print(result.stdout)
+
+
     """
     # Conecta no MongoDB
     client = MongoClient(os.getenv('MONGO_URL'))
