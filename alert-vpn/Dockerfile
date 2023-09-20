@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-RUN apt-get install netcat -y
+RUN apt-get update && apt-get install netcat-traditional -y
 
 WORKDIR /usr/src/app
 
