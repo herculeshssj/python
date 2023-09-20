@@ -12,8 +12,13 @@ Dica obtida de https://stackoverflow.com/questions/4760215/running-shell-command
 
 if __name__ == '__main__':
     # Executa o comando nc
-    result = subprocess.run(['nc', '-z', '-v', '192.168.66.2', '1000'], stdout=subprocess.PIPE)
+    result = subprocess.run(['nc', '-z', '-v', '192.168.66.2', '2000'], stdout=subprocess.PIPE)
     print(result)
+
+    if "returncode=0" in result:
+        print('VPN up! :)')
+    else:
+        print('VPN down :(')
 
     """
     #discord_url = ''
