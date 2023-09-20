@@ -31,5 +31,5 @@ docker build -t alert-vpn-down:latest .
 Docker run:
 
 ```
-docker run --rm -it --net=host -e DISCORD_URL="<enter with discord webhook url>" alert-vpn-down:latest
+docker run --rm -it --net=host -e DISCORD_URL="<enter with discord webhook url>" -e IP_CHECK=<IP to check> -e PORT_CHECK=<port to check> alert-vpn-down:latest
 ```
