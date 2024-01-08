@@ -7,12 +7,26 @@ float - real/ponto flutuante
 bool - booleano
 """
 if __name__ == '__main__':
-    print('Tipos de dados primitivos')
+    print('Tipos de dados primitivos', end='\r\n\r\n')
 
     print('Isto aqui é uma string', type('Isto aqui é uma string'))  # str
     print('Isto aqui é um número inteiro:', 123456, type(123456))  # int
     print('Isto aqui é um número real:', 123456.789, type(123456.789))  # float
     print('Isto aqui é um booleano:', 10 == 10, type(10 == 10))  # bool
+
+    # Para strings, posso utilizar tanto aspas simples quanto aspas duplas
+    print('José')
+    print("José")
+
+    # Caracter de escape
+    print('José Sant\'Ana')
+
+    # r
+    print(r'José Sant\'Ana')
+
+    print('Posso usar "aspas" na string, para deixar o código mais limpo')
+
+    # o 'r' é usado mais para expressões regulares
 
     # String vazia, valor zero retorna falso ou dicionários vazios
     print(bool(''), bool(0))
