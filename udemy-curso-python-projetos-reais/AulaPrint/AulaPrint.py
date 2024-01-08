@@ -4,9 +4,9 @@ if __name__ == '__main__':
     print('Hello World')
     print(123456)
 
-    print('José', 'Silva') # Vai imprimir os dois argumentos separados por espaćo
+    print('José', 'Silva') # Vai imprimir os dois argumentos separados por espaço
 
-    print('José', 'Silva', sep='-') # Uso de separador na funćão print()
+    print('José', 'Silva', sep='-') # Uso de separador na função print()
 
     print('João', 'e', 'Maria', sep='-', end='') # parâmetro end informa o caracter de final de linha
     print('Bento')
