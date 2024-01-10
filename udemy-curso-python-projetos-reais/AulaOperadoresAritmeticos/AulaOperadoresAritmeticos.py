@@ -1,9 +1,9 @@
 """
 Operadores
 
-Adićão (+)
-Subtraćão (-)
-Multiplicaćão (*)
+Adição (+)
+Subtração (-)
+Multiplicação (*)
 Divisão (/)
 Divisão inteira (//)
 Potenciaćão (**)
@@ -15,19 +15,19 @@ Os parênteses alteram a precedência dos operadores
 if __name__ == '__main__':
     print('Operadores aritméticos')
 
-    print('Adićão: 10 + 10 =', 10 + 10)
-    print('Subtraćão: 10 - 10 =', 10 - 10)
-    print('Multiplicaćão: 10 * 10 =', 10 * 10)
+    print('Adição: 10 + 10 =', 10 + 10)
+    print('Subtração: 10 - 10 =', 10 - 10)
+    print('Multiplicação: 10 * 10 =', 10 * 10)
     print('Divisão: 10 / 2 =', 10 / 2)
     print('Divisão inteira: 10.5 // 2 =', 10.5 // 2)
-    print('Potenciaćão: 10 ** 2 =', 10 ** 2)
+    print('Potenciação: 10 ** 2 =', 10 ** 2)
     print('Resto da divisão: 10 % 3 =', 10 % 3)
 
     # Caso especial com o operador (*)
-    print('Duplicaćão de string:', 10 * 'A')
+    print('Duplicação de string:', 10 * 'A')
 
     # Caso especial com o operador (+)
-    print('Concatenaćão de string:', '5' + 'A')
+    print('Concatenação de string:', '5' + 'A')
     print('José' + ' tem ' + str(32) + ' anos')
 
     # Precedência
