@@ -13,21 +13,24 @@ if __name__ == '__main__':
     e_maior = idade > 18
     data_atual = 2021
     peso = 80
+    sobrenome = 'Silva'
 
     print('Nome:', nome)
+    print('Sobrenome', sobrenome)
     print('Idade:', idade)
     print('Altura:', altura)
     print('É maior de idade:', e_maior)
 
     # Exercício
-    print(nome, 'tem', idade, 'e seu IMC é', peso / (altura ** 2))
+    print(nome, sobrenome, 'tem', idade, 'e seu IMC é', peso / (altura ** 2), sep=" ")
+    # Usando sep= para poder separar os valores com espaço.
 
     print()
     # Inversão de valores entre variáveis
     x = 10  # Luiz
     y = 'Luiz'  # 10
     """
-    Troca de valores nas linguagens de programaćão
+    Troca de valores nas linguagens de programação
     z = x
     x = y
     y = z
@@ -37,3 +40,4 @@ if __name__ == '__main__':
     print(f'Valor de X: {x}; Valor de Y: {y}')
     x, y = y, x
     print(f'Valor de X: {x}; Valor de Y: {y}')
+    # Hiper fácil trocar valores de variáveis em Python XD
