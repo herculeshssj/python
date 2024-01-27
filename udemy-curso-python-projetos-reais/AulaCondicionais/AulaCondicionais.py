@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print()
     print('##### Exercício #####')
     usuario = input('Nome de usuário: ')
-    senha = input('Senha do usuário: ')
+    senha = input('Senha do usuário: ') or 'Sem senha'
     usuario_bd = 'jose'
     senha_bd = '123456'
     if usuario_bd == usuario and senha_bd == senha:
