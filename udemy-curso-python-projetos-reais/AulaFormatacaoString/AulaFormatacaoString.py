@@ -18,3 +18,10 @@ if __name__ == '__main__':
 
     # Funćão format() usando parâmetros nomeados
     print('{n} tem {i} anos de idades e seu IMC é {im:.2f}'.format(n=nome, i=idade, im=imc))
+
+
+    variavel = 'ABC'
+    print(f'{variavel}')
+    print(f'{variavel: >10}')
+    print(f'{variavel: <10}')
+    print(f'{variavel: ^10}')
