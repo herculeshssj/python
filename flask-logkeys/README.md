@@ -27,7 +27,9 @@ python3 -m pip install --upgrade pip
 
 Instalar as dependências:
 
-...
+```shell
+python3 -m pip install -r requirements.txt
+```
 
 
 Comando no terminal:
