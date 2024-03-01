@@ -18,15 +18,20 @@ def remove_tags(html):
 
 if __name__ == '__main__':
 
-    wb = load_workbook(filename='osticket_ct.xlsx')
+    # Para evitar alterar sempre o código fonte, posicione a coluna com o 
+    # conteúdo HTML na primeira coluna da planilha.
+    # Deixa a segunda coluna da planilha em branco, pois será onde o texto
+    # corrigido será gravado.
+
+    wb = load_workbook(filename='planilha.xlsx')
     for ws in wb.worksheets:
         for index, row in enumerate(ws.rows, start=1):
-            # print(row[3].value)
-            # print( remove_tags(row[3].value) ) 
-            # print(index, ws.cell(row=index, column=4).value)
-            x1 = remove_tags(row[3].value)
-            ws.cell(row=index, column=4).value = x1
+            #print(row[0].value)
+            #print( remove_tags(row[0].value) ) 
+            #print(index, ws.cell(row=index, column=2).value)
+            x1 = remove_tags(row[0].value)
+            ws.cell(row=index, column=2).value = x1
 
     # Save a new file
-    wb.save(filename='osticket_ct_fixed.xlsx')
+    wb.save(filename='planilha_fixed.xlsx')
     wb.close()
