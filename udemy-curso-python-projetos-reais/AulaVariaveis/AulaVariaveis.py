@@ -41,3 +41,9 @@ if __name__ == '__main__':
     x, y = y, x
     print(f'Valor de X: {x}; Valor de Y: {y}')
     # Hiper fácil trocar valores de variáveis em Python XD
+
+    # Identidade de uma variável
+    v1 = 'a'
+    v2 = 'a'
+    print(id(v1))
+    print(id(v2))
