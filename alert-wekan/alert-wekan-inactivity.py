@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     # Seta as variáveis
     to_date = datetime.today()
-    from_date = datetime.today() - timedelta(hours=24)
+    from_date = datetime.today() - timedelta(hours=72)
 
     # Consulta as raias em movimento
     raias_em_movimento = db.activities.aggregate([
