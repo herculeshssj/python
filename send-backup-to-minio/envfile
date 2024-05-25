@@ -1,0 +1,4 @@
+MINIO_HOST=<url do MinIO>
+MINIO_ACCESS_KEY=<access key do MinIO>
+MINIO_SECRET_KEY=<secret key do MinIO>
+MINIO_BUCKET=<nome do bucket no MinIO>
