@@ -15,8 +15,12 @@ docker build -t send-backup-minio:latest .
 Docker run:
 
 ```
-docker run --rm --env-file=envfile -v "$PWD":/data send-backup-minio:latest python send-backup-to-minio.py teste.txt
+docker run --rm --env-file=envfile -v "$PWD":/data send-backup-minio:latest python send-backup-to-minio.py teste.txt --keep
 ```
+
+Parameters:
+- --keep - keep the oldest file in the bucket
+- --nokeep - delete the oldest file from the bucket
 
 ### Warning
 
