@@ -20,18 +20,28 @@ def enviar_arquivo_para_minio(arquivo):
 
     # Obtém o prefixo do arquivo
     arquivo_prefixo = arquivo.split('-')[0]
+    print(f'Prefixo do arquivo: {arquivo_prefixo}')
+    print()
 
     # Liste todos os objetos no bucket
     objects = client.list_objects(bucket_name, prefix=arquivo_prefixo, recursive=True)
+    print('Lista de objetos')
+    for o in objects:
+        print(o)
+    print()
 
     # Crie um dicionário para armazenar os nomes dos arquivos e suas datas
     file_dates = {}
 
     for obj in objects:
         file_name = obj.object_name
+        print(f'Nome do arquivo atual: {file_name}')
         # Extraia a data do nome do arquivo (assumindo que o formato é "backup-YYYY-MM-DD.tar.bz2")
-        date_str = file_name.split("-")[1]
+        date_str = file_name.split("-", 1)[1]
+        print(f'Data extraída: {date_str}')
         file_dates[file_name] = date_str
+
+    print()
 
     # Ordene os arquivos pelo nome (que inclui a data)
     sorted_files = sorted(file_dates.items(), key=lambda x: x[0])
