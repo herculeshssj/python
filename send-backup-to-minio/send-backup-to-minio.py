@@ -19,7 +19,7 @@ def enviar_arquivo_para_minio(arquivo):
     object_name = arquivo
 
     # Obtém o prefixo do arquivo
-    arquivo_prefixo = arquivo.split('-')[0]
+    arquivo_prefixo = '/data/' + arquivo.split('-')[0]
     print(f'Prefixo do arquivo: {arquivo_prefixo}')
     print()
 
