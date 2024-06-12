@@ -25,7 +25,7 @@ def enviar_arquivo_para_minio(arquivo):
     print(f'Prefixo sem /data: {arquivo_prefixo.lstrip("/data/")}')
 
     # Liste todos os objetos no bucket
-    objects = client.list_objects(bucket_name, prefix="bash_history", recursive=True)
+    objects = client.list_objects(bucket_name, prefix="/data/bash_history", recursive=True)
     print('Lista de objetos')
     for o in objects:
         print(o)
