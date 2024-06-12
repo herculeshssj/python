@@ -22,10 +22,10 @@ def enviar_arquivo_para_minio(arquivo):
     arquivo_prefixo = arquivo.split('-')[0]
     print(f'Prefixo do arquivo: {arquivo_prefixo}')
     print()
-    print(f'Prefixo sem /data: {arquivo_prefixo.lstrip("/data/")}')
+    print(f'Prefixo sem /: {arquivo_prefixo.lstrip("/")}')
 
     # Liste todos os objetos no bucket
-    objects = client.list_objects(bucket_name, recursive=True)
+    objects = client.list_objects(bucket_name, prefix=arquivo_prefixo.lstrip('/'), recursive=True)
     print('Lista de objetos')
     for o in objects:
         print(o.object_name)
