@@ -2,7 +2,7 @@
 #### Adaptado por hssj.dev.br ####
 from minio import Minio
 
-def enviar_arquivo_para_minio(arquivo):
+def enviar_arquivo_para_minio(arquivo, manter_arquivo):
     import os
 
     minio_host = os.getenv('MINIO_HOST')
@@ -37,7 +37,7 @@ def enviar_arquivo_para_minio(arquivo):
     sorted_files = sorted(file_dates.items(), key=lambda x: x[0])
 
     # Exclua o arquivo mais antigo
-    if sorted_files:
+    if sorted_files and not manter_arquivo:
         oldest_file_name, _ = sorted_files[0]
         client.remove_object(bucket_name, oldest_file_name)
         print(f"Arquivo mais antigo ({oldest_file_name}) excluído com sucesso.")
@@ -54,9 +54,15 @@ def enviar_arquivo_para_minio(arquivo):
 if __name__ == "__main__":
     import sys
     
-    if len(sys.argv) != 2:
-        print("Uso: python enviar_para_minio.py <arquivo>")
+    if len(sys.argv) != 3:
+        print("Uso: python enviar_para_minio.py <arquivo> [--keep | --nokeep]")
         sys.exit(1)
         
     arquivo = sys.argv[1]
-    enviar_arquivo_para_minio(arquivo)
+    manter_arquivo = None
+    if sys.argv[2] == '--keep':
+        manter_arquivo = True
+    else:
+        manter_arquivo = False
+
+    enviar_arquivo_para_minio(arquivo, manter_arquivo)
