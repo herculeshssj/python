@@ -20,20 +20,14 @@ def enviar_arquivo_para_minio(arquivo):
 
     # Obtém o prefixo do arquivo
     arquivo_prefixo = arquivo.split('-')[0]
-    print(f'Prefixo do arquivo: {arquivo_prefixo}')
-    print()
-    print(f'Prefixo sem /: {arquivo_prefixo.lstrip("/")}')
 
     # Liste todos os objetos no bucket
     objects = client.list_objects(bucket_name, prefix=arquivo_prefixo.lstrip('/'), recursive=True)
-    print('Lista de objetos')
-    for o in objects:
-        print(o.object_name)
-    print()
 
     # Crie um dicionário para armazenar os nomes dos arquivos e suas datas
     file_dates = {}
 
+    print('Listagem de datas')
     for obj in objects:
         file_name = obj.object_name
         print(f'Nome do arquivo atual: {file_name}')
