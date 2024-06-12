@@ -27,16 +27,11 @@ def enviar_arquivo_para_minio(arquivo):
     # Crie um dicionário para armazenar os nomes dos arquivos e suas datas
     file_dates = {}
 
-    print('Listagem de datas')
     for obj in objects:
         file_name = obj.object_name
-        print(f'Nome do arquivo atual: {file_name}')
         # Extraia a data do nome do arquivo (assumindo que o formato é "backup-YYYY-MM-DD.tar.bz2")
         date_str = file_name.split("-", 1)[1]
-        print(f'Data extraída: {date_str}')
         file_dates[file_name] = date_str
-
-    print()
 
     # Ordene os arquivos pelo nome (que inclui a data)
     sorted_files = sorted(file_dates.items(), key=lambda x: x[0])
