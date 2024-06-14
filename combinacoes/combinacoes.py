@@ -49,7 +49,7 @@ for i, combinacao in enumerate(combinacoes):
     #print(combinacao)
     #time.sleep(1)
 
-    commit_count = 0
+    #commit_count = 0
 
     query_string = "INSERT INTO combinacoes.combinacoes (col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13, col14, col15, conjunto) VALUES({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, '{}')"
     tupla_string = ', '.join(str(elemento) for elemento in combinacao)
@@ -60,14 +60,14 @@ for i, combinacao in enumerate(combinacoes):
     cursor.execute(query)
     conn.commit()
 
-    commit_count += 1
-
+    #commit_count += 1
+"""
     if commit_count == 10000:
         conn.commit()
         commit_count = 0
         print('Commit!')
 
-"""    
+
     query = "ALTER TABLE combinacoes ADD COLUMN col{} INT".format(i+1)
     print(query)
     cursor.execute(query)
