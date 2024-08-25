@@ -20,20 +20,21 @@ api_key = 'api_key'  # Replace with the actual API key
 # Define headers with API key
 headers = {'x-api-key': api_key}
 
-# Send the API request
-response = requests.get(url, params=query_params, headers=headers)
+# Conexão com a base Mongo
+client = MongoClient('mongodb://s2api:S2s3m4nt1cSch*l4r@localhost:27017')
+db = client.s2api
 
-# Check response status
-if response.status_code == 200:
-   response_data = response.json()
-   # Process and print the response data as needed
-   pretty_json = json.dumps(response_data, indent=4)
-   #print(pretty_json)
-   #print(response_data)
+while True:
+   # Send the API request
+   response = requests.get(url, params=query_params, headers=headers)
 
-   # Conexão com a base Mongo
-   client = MongoClient('mongodb://s2api:S2s3m4nt1cSch*l4r@localhost:27017')
-   db = client.s2api
+   # Check response status
+   if response.status_code == 200:
+      response_data = response.json()
+      # Process and print the response data as needed
+      #pretty_json = json.dumps(response_data, indent=4)
+      #print(pretty_json)
+      #print(response_data)
 
    for s2result in response_data['data']:
       s2pretty = json.dumps(s2result, indent=4)
@@ -42,8 +43,14 @@ if response.status_code == 200:
 
       db.bulk_search.insert_one(s2result)
 
-   # Encerra a conexão com a base Mongo
-   client.close()
+   else:
+      print(f"Request failed with status code {response.status_code}: {response.text}")
 
-else:
-   print(f"Request failed with status code {response.status_code}: {response.text}")
+   if response_data['token'] is None or response_data['token'] == '':
+      break
+   else:
+      query_params['token'] = response_data['token'];
+
+# Encerra a conexão com a base Mongo
+client.close()
+
