@@ -11,7 +11,7 @@ url = 'https://api.semanticscholar.org/graph/v1/paper/search/bulk'
 # - web of things
 query_params = {
    'query': '("web of things") | WoT',
-   'fields': 'paperId,title,year,abstract,externalIds,url'
+   'fields': 'paperId,title,year,abstract,externalIds,url,authors,referenceCount,citationCount,publicationTypes,journal'
 }
 
 # Directly define the API key (Reminder: Securely handle API keys in production environments)
