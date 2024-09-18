@@ -21,15 +21,15 @@ Analyze the title and abstract of the following article, and determine whether t
     """
 
     # Criação do prompt para cada entrada da planilha
-    #df['prompt'] = prompt + '\n\n' + '**Title:** ' + df['Title'].astype(str) + '\n' + '**Abstract:** ' + df['Abstract'].astype(str)
+    df['prompt'] = prompt + '\n\n' + '**Title:** ' + df['Title'].astype(str) + '\n' + '**Abstract:** ' + df['Abstract'].astype(str)
 
     # Inicializar uma lista para armazenar as respostas
     responses = []
 
     # Para cada linha do dataframe
     for _, row in df.iterrows():
-        client = OpenAI()
-        response = client.chat_completions.create(
+        client = OpenAI(api_key='<api_key>')
+        response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": prompt},
@@ -42,10 +42,12 @@ Analyze the title and abstract of the following article, and determine whether t
             presence_penalty=0
         )
         # Extrair o texto da resposta do modelo
-        response_text = response.choices[0].message['content']
+        response_text = response.choices[0].message.content
         responses.append(response_text)
+        print(response_text)
 
-        time.sleep(10)
+        print('Key ' + row['Key'] + ' processed!')
+        #time.sleep(10)
 
     # Adicionar a coluna 'response' ao dataframe
     df['response'] = responses
