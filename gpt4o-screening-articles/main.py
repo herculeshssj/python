@@ -47,7 +47,7 @@ Analyze the title and abstract of the following article, and determine whether t
         print(response_text)
 
         print('Key ' + row['Key'] + ' processed!')
-        #time.sleep(10)
+        time.sleep(5)
 
     # Adicionar a coluna 'response' ao dataframe
     df['response'] = responses
