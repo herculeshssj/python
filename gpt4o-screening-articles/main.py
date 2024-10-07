@@ -63,20 +63,6 @@ Analyze the title and abstract of the following article, and determine whether t
         cursor.execute("update articles set response = ? where key = ?", (response_text, row['Key']))
         conn.commit()
         
-        """
-        import sqlite3
-
-conn = sqlite3.connect('example.db')
-cursor = conn.cursor()
-
-# Suponha que value1 e value2 contenham strings com quebras de linha e caracteres Unicode
-cursor.execute("INSERT INTO table_name (column1, column2) VALUES (?, ?)", (value1, value2))
-
-conn.commit()
-conn.close()
-
-        """
-
         print('Key ' + row['Key'] + ' processed!')
         time.sleep(5)
 
