@@ -15,7 +15,9 @@ if __name__ == '__main__':
 
     # Texto inicial que será enviado no prompt
     prompt = """
-I am preparing a literature scoping review on the Web of Things in the context of active and healthy ageing, with the following research questions: 'RQ1: How does the Web of Things (WoT) support active and healthy aging?'; 'RQ2: How does WoT address known challenges in active and healthy aging, such as privacy and data protection?'
+I am preparing a literature scoping review on the Web of Things in the context of active and healthy ageing, with the following research objective and research questions:
+- Objective: Understanding the role of the Web of Things (WoT) in supporting active and healthy aging, while addressing critical challenges such as privacy and data protection.
+- Research questions: RQ1 - How does the Web of Things (WoT) support active and healthy aging?; RQ2 - How does WoT address known challenges in active and healthy aging, such as privacy and data protection?
 
 Analyze the title and abstract of the following article, and determine whether the article is suitable or not for inclusion in the review, or it is necessary a full read of the paper. Inform the decision in a single sentence, and justifying your choice in the following sentences.
     """
@@ -23,8 +25,21 @@ Analyze the title and abstract of the following article, and determine whether t
     # Criação do prompt para cada entrada da planilha
     df['prompt'] = prompt + '\n\n' + '**Title:** ' + df['Title'].astype(str) + '\n' + '**Abstract:** ' + df['Abstract'].astype(str)
 
-    # Inicializar uma lista para armazenar as respostas
-    responses = []
+    # Inclusão da coluna para guardar as respostas
+    df['response'] = ''
+
+    # Conectar ao banco de dados SQLite (ou criar se não existir)
+    conn = sqlite3.connect('wot-screening.sqlite')
+
+    # Salvar o dataframe na tabela 'articles'
+    df.to_sql('articles', conn, if_exists='replace', index=False)
+
+    # Fechar a conexão com o banco de dados para persistir todas as operações
+    conn.close()
+
+    # Abre uma nova conexão com a base para poder armazenar os resultados
+    conn = sqlite3.connect('wot-screening.sqlite')
+    cursor = conn.cursor()
 
     # Para cada linha do dataframe
     for _, row in df.iterrows():
@@ -43,19 +58,27 @@ Analyze the title and abstract of the following article, and determine whether t
         )
         # Extrair o texto da resposta do modelo
         response_text = response.choices[0].message.content
-        responses.append(response_text)
+
+        ## Faz a atualização dos dados
+        cursor.execute("update articles set response = ? where key = ?", (response_text, row['Key']))
+        conn.commit()
+        
+        """
+        import sqlite3
+
+conn = sqlite3.connect('example.db')
+cursor = conn.cursor()
+
+# Suponha que value1 e value2 contenham strings com quebras de linha e caracteres Unicode
+cursor.execute("INSERT INTO table_name (column1, column2) VALUES (?, ?)", (value1, value2))
+
+conn.commit()
+conn.close()
+
+        """
 
         print('Key ' + row['Key'] + ' processed!')
         time.sleep(5)
-
-    # Adicionar a coluna 'response' ao dataframe
-    df['response'] = responses
-
-    # Conectar ao banco de dados SQLite (ou criar se não existir)
-    conn = sqlite3.connect('wot-screening.sqlite')
-
-    # Salvar o dataframe na tabela 'articles'
-    df.to_sql('articles', conn, if_exists='replace', index=False)
 
     # Fechar a conexão com o banco de dados
     conn.close()
