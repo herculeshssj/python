@@ -15,9 +15,9 @@ if __name__ == '__main__':
 
     # Texto inicial que será enviado no prompt
     prompt = """
-I am preparing a literature scoping review on the Web of Things in the context of healthy and well-being of older adults, with the following research questions: 'RQ1: How is the Web of Things (WoT) being utilized to promote active and healthy aging?'; 'RQ2: How is WoT interacting with emerging technologies in addressing known challenges in active and healthy aging, such as privacy and data protection?'
+I am preparing a literature scoping review on the Web of Things in the context of active and healthy ageing, with the following research questions: 'RQ1: How does the Web of Things (WoT) support active and healthy aging?'; 'RQ2: How does WoT address known challenges in active and healthy aging, such as privacy and data protection?'
 
-Analyze the title and abstract of the following article, and determine whether the article would be suitable or not for inclusion in the review, or it is necessary a full read of the paper. Inform the decision in a single sentence, and justifying your choice in the following sentences.
+Analyze the title and abstract of the following article, and determine whether the article is suitable or not for inclusion in the review, or it is necessary a full read of the paper. Inform the decision in a single sentence, and justifying your choice in the following sentences.
     """
 
     # Criação do prompt para cada entrada da planilha
@@ -44,7 +44,6 @@ Analyze the title and abstract of the following article, and determine whether t
         # Extrair o texto da resposta do modelo
         response_text = response.choices[0].message.content
         responses.append(response_text)
-        print(response_text)
 
         print('Key ' + row['Key'] + ' processed!')
         time.sleep(5)
