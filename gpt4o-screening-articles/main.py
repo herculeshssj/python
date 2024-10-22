@@ -15,11 +15,11 @@ if __name__ == '__main__':
 
     # Texto inicial que será enviado no prompt
     prompt = """
-I am preparing a literature scoping review on the Web of Things in the context of active and healthy ageing, with the following research objective and research questions:
+I am preparing a literature scoping review on the Web of Things in the context of active and healthy ageing, privacy and data protection, with the following research objective, research questions and inclusion criteria:
 - Objective: Understanding the role of the Web of Things (WoT) in supporting active and healthy aging, while addressing critical challenges such as privacy and data protection.
 - Research questions: RQ1 - How does the Web of Things (WoT) support active and healthy aging?; RQ2 - How does WoT address known challenges in active and healthy aging, such as privacy and data protection?
 
-Analyze the title and abstract of the following article, and determine whether the article is suitable or not for inclusion in the review, or it is necessary a full read of the paper. Inform the decision in a single sentence, and justifying your choice in the following sentences.
+Critically and scientifically analyze the title and abstract of the following article, and determine whether the article is suitable or not for inclusion in the review, or it is necessary a full read of the paper. For the not suitable articles, inform it is not directly related of the objective and research questions, or it is outside of scope of the review. Inform the decision in a single sentence, and justifying your choice in the following sentences.
     """
 
     # Criação do prompt para cada entrada da planilha
@@ -45,7 +45,7 @@ Analyze the title and abstract of the following article, and determine whether t
     for _, row in df.iterrows():
         client = OpenAI(api_key='<api_key>')
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": prompt},
                 {"role": "user", "content": f"**Title:** {row['Title']}\n**Abstract:** {row['Abstract']}"}
