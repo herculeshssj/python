@@ -31,7 +31,7 @@ def conectar_e_atualizar_cpf():
     try:
         # Conexão com o banco de dados
         conn = mariadb.connect(
-            host='rockylinux',  # e.g., 'localhost' ou '127.0.0.1'
+            host='127.0.0.1',  # e.g., 'localhost' ou '127.0.0.1'
             user='root',
             password='root',
             database='cap'
