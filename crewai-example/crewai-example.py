@@ -2,7 +2,7 @@ import os
 from crewai import Agent, Task, Crew, Process, LLM
 
 ollama_llm = LLM(
-    model="ollama/llama3.2",
+    model="ollama/gemma3",
     base_url="http://localhost:11434"
 )
 
