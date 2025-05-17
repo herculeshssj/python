@@ -1,16 +1,16 @@
-from accounts.views.base import BaseView
+from accounts.views.base import Base
 from accounts.auth import Authentication
 from accounts.serializers import UserSerializer
+
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-class SignIn(BaseView):
-    def post(self, request) -> None:
-        # Implement the sign-in logic here
+class Signin(Base):
+    def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
 
-        user = Authentication.authenticate(self, email=email, password=password)
+        user = Authentication.signin(self, email=email, password=password)
         
         token = RefreshToken.for_user(user)
 
@@ -22,6 +22,5 @@ class SignIn(BaseView):
             "user": serializer.data,
             "enterprise": enterprise,
             "refresh": str(token),
-            "access_token" : token.access_token
+            "access": str(token.access_token)
         })
-
