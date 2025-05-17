@@ -1,7 +1,7 @@
-from views import BaseView
+from accounts.views.base import BaseView
 from accounts.auth import Authentication
 from accounts.serializers import UserSerializer
-from rest_framework import Response
+from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class SignIn(BaseView):
