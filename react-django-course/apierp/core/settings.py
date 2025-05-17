@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# Todas as aplicações do projeto precisam ser registradas aqui
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # CORS middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.common.CommonMiddleware', # Middleware to handle CORS
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -87,7 +87,8 @@ DATABASES = {
     }
 }
 """
-
+# Configuração do banco de dados MySQL
+# Para usar o MySQL, você precisa instalar o driver mysqlclient
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -157,6 +158,7 @@ REST_FRAMEWORK = {
     )
 }
 
+# JWT settings
 SIMPle_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=1)
 }
