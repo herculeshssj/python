@@ -21,7 +21,7 @@ class SignIn(BaseView):
         return Response({
             "user": serializer.data,
             "enterprise": enterprise,
-            "refresh": token.refresh,
+            "refresh": str(token),
             "access_token" : token.access_token
         })
 
