@@ -1,5 +1,9 @@
-export const UserRoles = () => {
-    const roles = ['CEO', 'CTO', 'admin'];
+type Props = {
+    roles: {id: number, title: string}[]
+}
+
+export const UserRoles = (roles : Props) => {
+    // const roles = ['CEO', 'CTO', 'admin'];
 
     const rolesMap = [
         { id: 1, name: 'CEO' },
