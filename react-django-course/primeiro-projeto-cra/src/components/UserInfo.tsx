@@ -4,15 +4,33 @@ import { UserEmail } from "./UserEmail"
 import { UserName } from "./UserName"
 import { UserRoles } from "./UserRoles"
 
-export const UserInfo = () => {
+type Props = {
+    name: string;
+    email: string;
+    age: number;
+    url: string;
+    roles: {id: number, title: string}[]
+}
+
+export const UserInfo = (props: Props) => {
     return (
         <>
             <h2>Informações do usuário</h2>
-            <UserAvatar />
-            <UserName />
-            <UserEmail />
-            <UserAge />       
-            <UserRoles />     
+            <UserAvatar 
+                src={props.url}
+            />
+            <UserName 
+                name={props.name}
+            />
+            <UserEmail 
+                email={props.email}
+            />
+            <UserAge 
+                age={props.age}
+            />       
+            <UserRoles 
+                roles={props.roles}
+            />     
         </>
     )
 }

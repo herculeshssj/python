@@ -1,9 +1,13 @@
-export const UserAvatar = () => {
+type Props = {
+  src:string;
+}
+
+export const UserAvatar = (src: Props) => {
   return (
     <>
         <div className="flex items-center">
         <img
-            src="https://via.placeholder.com/150"
+            src={src.src}
             alt="User Avatar"
             className="w-10 h-10 rounded-full"
             onClick={() => alert('User Avatar Clicked')}

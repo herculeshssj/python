@@ -1,5 +1,10 @@
-export const UserEmail = () => {
+// Tentando declarar propTypes para o componente UserEmail de um modo diferente
+type EmailProps = {
+  email: string;
+}
+
+export const UserEmail = (email: EmailProps) => {
   return (
-    <h4>Meu email é: jose@teste.com </h4>
+    <h4>Meu email é: {email.email} </h4>
   );
 }
