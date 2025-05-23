@@ -1,4 +1,6 @@
+import { Card } from "./components/Card";
 import { UserInfo } from "./components/UserInfo";
+import { UserName } from "./components/UserName";
 
 const App = () => {
 
@@ -36,6 +38,10 @@ const App = () => {
         url="https://www.w3schools.com/howto/img_avatar.png"
         roles={[{ id: 1, title: "Admin" }, { id: 2, title: "User" }]}
       /> : <h2>Você não está logado</h2>}
+
+        <Card>
+          <UserName name="João da Silva" />
+        </Card>
 
     </div>
   );
