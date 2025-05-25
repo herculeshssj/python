@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { Button } from "./components/Button";
 import {useState} from 'react';
 
@@ -8,6 +8,12 @@ const App = () => {
   const [count, setCount] = useState(0)
 
   const [logged, setLogged] = useState(false);
+
+  const [value, setValue] = useState('');
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  } 
 
   const handleClickCount = () => {
     setCount(count + 1);
@@ -50,6 +56,12 @@ const App = () => {
         <input />
         <button>Enviar</button>
       </form>
+
+      <input
+        value={value}
+        onChange={handleInputChange}
+      />
+      <h2>{value}</h2>
     </div>
   )
 }
