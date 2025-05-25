@@ -1,14 +1,20 @@
+import { Button } from "./components/Button";
+
 const App = () => {
 
   const handleClick = (value: string) => {
     alert(value);
   }
 
+  const tratarClique = (value: string) => {
+    alert(value);
+  }
+
   return (
     <div>
-      <button onClick={() => handleClick('Hello')}>
-        <span>Click me</span>
-      </button>
+      <Button
+        onClique={tratarClique}
+      />
     </div>
   )
 }
