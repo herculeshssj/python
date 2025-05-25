@@ -11,11 +11,14 @@ export const UserRoles = (roles : Props) => {
         { id: 3, name: 'admin' }
     ]
 
+    // Comentando variável não utilizada
+    /*
     const filterRoles = (value: {id: number, title: string}):boolean => {
         return value.title.includes('a');
     }
+    */
 
-    const filteredRoles = rolesMap.filter(value => value.id == 1);
+    const filteredRoles = rolesMap.filter(value => value.id === 1);
     
     return (
         <ul>
