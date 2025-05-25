@@ -1,12 +1,12 @@
 const App = () => {
 
-  const handleClick = () => {
-    alert('Button clicked');
+  const handleClick = (value: string) => {
+    alert(value);
   }
 
   return (
     <div>
-      <button onClick={handleClick}>
+      <button onClick={() => handleClick('Hello')}>
         <span>Click me</span>
       </button>
     </div>
