@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 import { Button } from "./components/Button";
 import {useState} from 'react';
+import { StateUpdater } from "./components/StateUpdater";
 
 const App = () => {
 
@@ -62,6 +63,10 @@ const App = () => {
         onChange={handleInputChange}
       />
       <h2>{value}</h2>
+
+      <hr/>
+
+      <StateUpdater />
     </div>
   )
 }
