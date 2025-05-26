@@ -4,6 +4,7 @@ import {useState} from 'react';
 import { StateUpdater } from "./components/StateUpdater";
 import { Fullname } from "./components/Fullname";
 import { HookCondicional } from "./components/HookCondicional";
+import { ExemploFormulario } from "./components/ExemploFormulario";
 
 const App = () => {
 
@@ -28,11 +29,6 @@ const App = () => {
     alert(value);
   }
 
-  const handleSubmit = (e:FormEvent) => {
-    e.preventDefault();
-    alert('Formulário enviado');
-  }
-
   return (
     <div>
       <Button
@@ -52,10 +48,7 @@ const App = () => {
 
       <hr/>
 
-      <form onSubmit={handleSubmit}>
-        <input />
-        <button>Enviar</button>
-      </form>
+      <ExemploFormulario />
 
       <input
         value={value}
