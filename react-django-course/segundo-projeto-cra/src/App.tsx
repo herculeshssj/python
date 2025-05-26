@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent } from "react";
 import { Button } from "./components/Button";
 import {useState} from 'react';
 import { StateUpdater } from "./components/StateUpdater";
+import { Fullname } from "./components/Fullname";
 
 const App = () => {
 
@@ -11,25 +12,6 @@ const App = () => {
   const [logged, setLogged] = useState(false);
 
   const [value, setValue] = useState('');
-
-  const [fullname, setFullname] = useState({
-    firstName: '',
-    lastName: ''
-  });
-
-  const handleChangeFirstName = (e: ChangeEvent<HTMLInputElement>) => {
-    setFullname({
-      ...fullname,
-      firstName: e.target.value
-    });
-  }
-
-  const handleChangeLastName = (e: ChangeEvent<HTMLInputElement>) => {
-    setFullname({
-      ...fullname,
-      lastName: e.target.value
-    });
-  }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -85,12 +67,12 @@ const App = () => {
 
       <hr/>
 
+      <h2>State Updater</h2>
       <StateUpdater />
 
       <hr/>
 
-      <input value={fullname.firstName} onChange={handleChangeFirstName}/>
-      <input value={fullname.lastName} onChange={handleChangeLastName}/>
+      <Fullname />
 
     </div>
   )
