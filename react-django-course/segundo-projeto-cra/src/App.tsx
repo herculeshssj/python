@@ -5,6 +5,7 @@ import { StateUpdater } from "./components/StateUpdater";
 import { Fullname } from "./components/Fullname";
 import { HookCondicional } from "./components/HookCondicional";
 import { ExemploFormulario } from "./components/ExemploFormulario";
+import { StateMatrizes } from "./components/StateMatrizes";
 
 const App = () => {
 
@@ -64,6 +65,11 @@ const App = () => {
       <hr/>
 
       <Fullname />
+
+      <hr/>
+      <h2> Exemplo com matrizes / array </h2>
+
+      <StateMatrizes />
 
     </div>
   )
