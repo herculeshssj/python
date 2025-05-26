@@ -12,6 +12,25 @@ const App = () => {
 
   const [value, setValue] = useState('');
 
+  const [fullname, setFullname] = useState({
+    firstName: '',
+    lastName: ''
+  });
+
+  const handleChangeFirstName = (e: ChangeEvent<HTMLInputElement>) => {
+    setFullname({
+      ...fullname,
+      firstName: e.target.value
+    });
+  }
+
+  const handleChangeLastName = (e: ChangeEvent<HTMLInputElement>) => {
+    setFullname({
+      ...fullname,
+      lastName: e.target.value
+    });
+  }
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   } 
@@ -67,6 +86,12 @@ const App = () => {
       <hr/>
 
       <StateUpdater />
+
+      <hr/>
+
+      <input value={fullname.firstName} onChange={handleChangeFirstName}/>
+      <input value={fullname.lastName} onChange={handleChangeLastName}/>
+
     </div>
   )
 }
