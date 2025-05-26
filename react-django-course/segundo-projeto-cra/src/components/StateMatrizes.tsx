@@ -24,6 +24,10 @@ export const StateMatrizes = () => {
 
     }
 
+    const handleRemove = (key: number) => {
+        setTasks(tasks.filter((value, index) => index !== key))
+    }
+
     return(
         <div>
             <h2>Minha lista de tarefas</h2>
@@ -35,7 +39,10 @@ export const StateMatrizes = () => {
             <button onClick={handleAdd}>Adicionar</button>
             <ul>
                 {tasks.map((task, index) => (
-                    <li key={index}>{task}</li>
+                    <li key={index}>
+                        {task}
+                        <button onClick={() => handleRemove(index)}>Remover</button>
+                    </li>
                 ))}
             </ul>
         </div>
