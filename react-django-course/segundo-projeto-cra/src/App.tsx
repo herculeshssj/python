@@ -3,13 +3,12 @@ import { Button } from "./components/Button";
 import {useState} from 'react';
 import { StateUpdater } from "./components/StateUpdater";
 import { Fullname } from "./components/Fullname";
+import { HookCondicional } from "./components/HookCondicional";
 
 const App = () => {
 
   // Hooks são funções que permitem usar o estado e outros recursos do React sem escrever uma classe.
   const [count, setCount] = useState(0)
-
-  const [logged, setLogged] = useState(false);
 
   const [value, setValue] = useState('');
 
@@ -19,10 +18,6 @@ const App = () => {
 
   const handleClickCount = () => {
     setCount(count + 1);
-  }
-
-  const handleLogin = () => {
-    setLogged(!logged);
   }
 
   const handleClick = (value: string) => {
@@ -49,10 +44,13 @@ const App = () => {
         Usando Hooks - adicionar mais um
       </button>
 
-      <h2>{logged ? 'Usuário logado' : 'Usuário não logado'}</h2>
-      <button onClick={handleLogin}>
-        {logged ? 'Deslogar' : 'Logar'}
-      </button>
+      <hr/>
+      <h2>Hook Condicional</h2>
+      <p>Exemplo de hook condicional</p>
+
+      <HookCondicional />
+
+      <hr/>
 
       <form onSubmit={handleSubmit}>
         <input />
