@@ -6,6 +6,7 @@ export const Card = () => {
     const [lastName, setLastName] = useState('');
     const [fullName, setFullName] = useState('');
 
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         //console.log('Card foi renderizado')
@@ -17,7 +18,13 @@ export const Card = () => {
         */
         setFullName(`${firstName} ${lastName}`);
 
+        const intervalId = setInterval(() => {
+            setCount((prevCount) => prevCount + 1);
+            console.log('Contador atualizado:', count);
+        }, 1000);
+
         return () => { 
+            clearInterval(intervalId);
             console.log('useEffect foi executado!')
         }
     }, [firstName, lastName])
@@ -40,6 +47,10 @@ export const Card = () => {
                 onChange={(e) => setLastName(e.target.value)}
             />
             <strong>{fullName}</strong>
+
+            <br/>
+
+            <p>Contador: {count}</p>
         </>
     )
 }
