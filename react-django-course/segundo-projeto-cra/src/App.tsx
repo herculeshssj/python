@@ -6,9 +6,16 @@ import { Fullname } from "./components/Fullname";
 import { HookCondicional } from "./components/HookCondicional";
 import { ExemploFormulario } from "./components/ExemploFormulario";
 import { StateMatrizes } from "./components/StateMatrizes";
+import { Card } from "./components/Card";
 
 const App = () => {
 
+  const [visible, setVisible] = useState(false);
+
+  const handleVisible = () => {
+    setVisible(!visible);
+  }
+  
   // Hooks são funções que permitem usar o estado e outros recursos do React sem escrever uma classe.
   const [count, setCount] = useState(0)
 
@@ -70,6 +77,12 @@ const App = () => {
       <h2> Exemplo com matrizes / array </h2>
 
       <StateMatrizes />
+
+      <hr/>
+      <h2>Exemplo de UseEffect</h2>
+      <button onClick={handleVisible}> Mostrar / Ocultar Card </button>
+
+      {visible && <Card />}
 
     </div>
   )
