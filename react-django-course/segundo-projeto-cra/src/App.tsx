@@ -7,6 +7,7 @@ import { HookCondicional } from "./components/HookCondicional";
 import { ExemploFormulario } from "./components/ExemploFormulario";
 import { StateMatrizes } from "./components/StateMatrizes";
 import { Card } from "./components/Card";
+import { UseIdExemplo } from "./components/UseIdExemplo";
 
 const App = () => {
 
@@ -83,6 +84,10 @@ const App = () => {
       <button onClick={handleVisible}> Mostrar / Ocultar Card </button>
 
       {visible && <Card />}
+
+      <hr/>
+      <h2>Exemplo de UserID</h2>
+      <UseIdExemplo />
 
     </div>
   )
