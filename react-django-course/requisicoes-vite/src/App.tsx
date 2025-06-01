@@ -11,6 +11,7 @@ const App = () => {
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleGetPosts = async () => {
     setLoading(true);
@@ -22,7 +23,11 @@ const App = () => {
         },
       })
       .then(response => response.json())
-      .catch(error => console.error('Error fetching posts:', error));
+      .catch(error => {
+        setErrorMessage('Failed to fetch posts');
+        console.error('Error fetching posts:', error);
+        return [];
+      });
     
     setPosts(posts);
     setLoading(false);
@@ -32,6 +37,7 @@ const App = () => {
     <div>
       <button onClick={handleGetPosts}>Get Posts</button>
       {loading && <p>Loading...</p>}
+      {errorMessage && <p>Error: {errorMessage}</p>}
       <ul>
         {posts.map(post => (
           <li key={post.id}>
