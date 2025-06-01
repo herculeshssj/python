@@ -10,8 +10,10 @@ type Post = {
 const App = () => {
 
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleGetPosts = async () => {
+    setLoading(true);
     const posts = await fetch('https://jsonplaceholder.typicode.com/posts',
       {
         method: 'GET',
@@ -23,11 +25,13 @@ const App = () => {
       .catch(error => console.error('Error fetching posts:', error));
     
     setPosts(posts);
+    setLoading(false);
   }
 
   return (
     <div>
       <button onClick={handleGetPosts}>Get Posts</button>
+      {loading && <p>Loading...</p>}
       <ul>
         {posts.map(post => (
           <li key={post.id}>
