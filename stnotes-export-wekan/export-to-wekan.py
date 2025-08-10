@@ -10,7 +10,7 @@ if __name__ == '__main__':
         base_url='http://localhost:2000',
         username='user',
         password='pass')
-    
+
     # Tenta quantas vezes forem necessárias para cadastrar todos os cards
     todos_cadastrados = False
     while not todos_cadastrados:
@@ -37,6 +37,7 @@ if __name__ == '__main__':
                         lists.create_card(title=filename,
                                         description=content)
                         print('Arquivo ', filename, ' importado com sucesso.')
+                        time.sleep(1)
 
             todos_cadastrados = True # Se não houver exceções, todos os arquivos foram importados
         except Exception as e:
