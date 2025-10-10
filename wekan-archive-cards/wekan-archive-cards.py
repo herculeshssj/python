@@ -1,9 +1,9 @@
 import os
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime,timedelta
 
 """
-Efetua o arquivamento dos cards do quadro 'Planejamento Semanal' todo sábado às 23:59.
+Efetua o arquivamento dos cards com mais de 6 meses abertos do quadro 'UAb' todo sábado às 23:59.
 A definição do horário é determinada pela hora que o script é executado pelo cron.
 """
 
@@ -26,11 +26,15 @@ if __name__ == '__main__':
         # Seta a data e hora atual
         data_atual = datetime.today()
 
+        # Define a data limite para arquivamento (6 meses atrás)
+        seis_meses_atras = datetime.today() - timedelta(days=6*30)
+
         # Executa o update na base
         db.cards.update_many(
             {
                 "boardId": boardId,
-                "archived": False
+                "archived": False,
+                "createdAt": { "$lt": seis_meses_atras }
             },
             {
                 "$set": {
