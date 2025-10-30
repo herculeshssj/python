@@ -3,10 +3,8 @@ Script para realizar o processo de screening de títulos e resumos de artigos
 usando a API da OpenAI, e usando o modelo GPT-4o e GPT-4o-mini
 """
 
-from openai import OpenAI
 import pandas as pd
 import sqlite3
-import time
 
 if __name__ == '__main__':
 
@@ -14,9 +12,13 @@ if __name__ == '__main__':
     df = pd.read_excel('planilha.xlsx')
 
     # Texto inicial que será enviado no prompt
-    prompt = """I am looking for scientific articles in the context of the Internet of Things (IoT) that discuss the management of health data or personal data of older adults by third parties (doctors, nurses, caregivers, family members, friends) in cases where the older adults are unable to manage their own data due to complications or limitations arising from a medical event (e.g., fall, accident) or deterioration in their chronic health condition (e.g., diabetes, hypertension).
+    prompt = """I am selecting scientific articles that align with my PhD research
+**Research problem:** _How should health data of older adults with cognitive impairment be managed by third parties (doctors, nurses, caregivers, family members, friends) considering the growing concerns for personal data sovereignty, emphasized by legal regulations such as the GDPR?_
+**Research question:** _How can we enable the delegated management of personal data in IoT/WoT environments for older adults with cognitive impairment, in a secure, auditable manner, and in compliance with regulations such as the GDPR, respecting your data sovereignty?_
+**Objective:** _To explore the delegated management of data stored in PODs in the context of the IoT/WoT for older adults with cognitive impairment, to ensure the continuity of assistance by third parties in line with the principles of GDPR and data sovereignty._
+**Hypothesis:** _It is possible to design a delegated management architecture based on Solid protocol that ensures security, traceability, and compliance with the GDPR in the context of IoT for older adults with cognitive impairment._
 
-Critically and scientifically analyze the following title and abstract and determine whether it fits my research criteria or not fits. Answer with 'yes' if it fits and give an justification, and 'no' if it does not fit. Do not provide any additional information or explanations when answer 'no'.
+Critically and scientifically analyze the following title and abstract and determine whether it fits my PhD research or not fits, based on context of research problem. Answer with 'yes' if it fits and give an justification, and 'no' if it does not fit. Do not provide any additional information or explanations when answer 'no'. If the abstract is empty, ignore the article.
     """
 
     # Criação do prompt para cada entrada da planilha
