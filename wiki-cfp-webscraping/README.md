@@ -33,7 +33,7 @@ Replace the URL in the example below with your desired WikiCFP URL.
 ```bash
 curl -X POST http://localhost:5000/scrape \
   -H "Content-Type: application/json" \
-  -d '{"url": "http://www.wikicfp.com/cfp/call?conference=artificial%20intelligence"}'
+  -d '{"url": "http://www.wikicfp.com/cfp/call?conference=information%20management"}'
 ```
 
 The API will return a JSON array with the extracted event information.
