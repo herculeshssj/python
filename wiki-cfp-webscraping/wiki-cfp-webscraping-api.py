@@ -56,7 +56,8 @@ def scrape_events(url):
                         "name": first_row[1].text.strip(),
                         "when": second_row[0].text.strip(),
                         "where": second_row[1].text.strip(),
-                        "deadline": second_row[2].text.strip()
+                        "deadline": second_row[2].text.strip(),
+                        "enabled": True
                     }
 
                     # Generating a ID using UUID of the concatenated string of all fields
