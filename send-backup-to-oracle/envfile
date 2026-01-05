@@ -1,0 +1,4 @@
+OCI_CONFIG_FILE=~/.oci/config
+OCI_CONFIG_PROFILE=DEFAULT
+OCI_NAMESPACE=<seu-namespace>
+OCI_BUCKET=<seu-bucket-name>
