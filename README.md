@@ -40,3 +40,17 @@ Docker run:
 ```
 docker run -d --name python-projects -p 8000:8000 --env-file=envfile python-projects:latest
 ```
+
+# Database
+
+**SQlite**: pyprojects.sqlite
+**PostgreSQL**:
+- HOST: localhost
+- PORT: 5432
+- USERNAME: pyprojects
+- PASSWORD: py@pr0j3cts
+
+# Django
+
+**Admin user**: admin
+**Admin password**: sudoUser1234!
