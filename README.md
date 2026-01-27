@@ -44,9 +44,16 @@ docker run -d --name python-projects -p 8000:8000 --env-file=envfile python-proj
 # Database
 
 **SQlite**: pyprojects.sqlite
+
 **PostgreSQL**:
 - HOST: localhost
 - PORT: 5432
+- USERNAME: pyprojects
+- PASSWORD: py@pr0j3cts
+
+**MariaDB**:
+- HOST: localhost
+- PORT: 3306
 - USERNAME: pyprojects
 - PASSWORD: py@pr0j3cts
 
