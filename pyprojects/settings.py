@@ -88,6 +88,14 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     },
+    'mariadb': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pyprojects',
+        'USER': 'pyprojects',
+        'PASSWORD': 'py@pr0j3cts',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
 }
 
 
