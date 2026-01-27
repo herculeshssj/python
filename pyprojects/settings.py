@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'pyprojects',
         'USER': 'pyprojects',
         'PASSWORD': 'py@pr0j3cts',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     },
 }
