@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from migratedbs.models import Person
+from migratedbs.models import PersonMySQL
 
 class Command(BaseCommand):
     help = 'Migra conteúdo entre bancos de dados diferentes'
@@ -23,7 +23,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('Lendo dados da tabela Person no banco MariaDB:')
         print('**********************************************')
-        persons = Person.using_mariadb().all()
+        persons = PersonMySQL.using_mariadb().all()
         for person in persons:
             print(f'{person.id} - {person.name} - {person.registry_number} - {person.birth_date} - {person.salary}')
 
