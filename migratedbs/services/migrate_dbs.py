@@ -1,6 +1,8 @@
+import logging
 from time import sleep
 from migratedbs.models import Address, Employee, Employee, Person, Person, PersonMySQL
 
+log = logging.getLogger(__name__)
 
 class MigrateDBs:
 
@@ -38,12 +40,12 @@ class MigrateDBs:
 
 
     def migrate(self):
-        print('Lendo dados da tabela Person no banco MariaDB:')
-        print('**********************************************')
+        log.info('Lendo dados da tabela Person no banco MariaDB:')
+        log.info('**********************************************')
+        
         persons = PersonMySQL.using_mariadb().all()
         for person in persons:
-            print(f'{person.id} - {person.name} - {person.registry_number} - {person.birth_date} - {person.salary}')
-
+            log.info(f'{person.id} - {person.name} - {person.registry_number} - {person.birth_date} - {person.salary}')
             # Criar ou atualizar Person
             person_obj, created = Person.objects.using('postgres').update_or_create(
                 id=person.id,
@@ -64,6 +66,6 @@ class MigrateDBs:
             )
 
             sleep(1)  # Simula algum tempo de processamento
-            print('Registro gravado na base PostgreSQL')
+            log.info('Registro gravado na base PostgreSQL')
         
-        print('Migração concluída com sucesso!')
+        log.info('Migração concluída com sucesso!')
