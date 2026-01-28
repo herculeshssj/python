@@ -19,5 +19,9 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        migrate_dbs = MigrateDBs()
-        migrate_dbs.migrate()
+        try:
+            migrate_dbs = MigrateDBs()
+            migrate_dbs.migrate()
+        except Exception as e:
+            self.stderr.write(self.style.ERROR(f'Erro durante a migração: {e}'))
+            return
