@@ -28,7 +28,7 @@ class Command(BaseCommand):
             print(f'{person.id} - {person.name} - {person.registry_number} - {person.birth_date} - {person.salary}')
 
             # Criar ou atualizar Person
-            person_obj, created = Person.objects.using('postgres').get_or_create(
+            person_obj, created = Person.objects.using('postgres').update_or_create(
                 id=person.id,
                 defaults={
                     'name': person.name,
@@ -37,7 +37,7 @@ class Command(BaseCommand):
             )
             
             # Criar ou atualizar Employee
-            employee_obj, created = Employee.objects.using('postgres').get_or_create(
+            employee_obj, created = Employee.objects.using('postgres').update_or_create(
                 person=person_obj,
                 defaults={
                     'salary': person.salary,
@@ -49,7 +49,7 @@ class Command(BaseCommand):
             
             # Criar ou atualizar Address (se houver campos de endereço)
             # Ajuste conforme seus campos reais
-            address_obj, created = Address.objects.using('postgres').get_or_create(
+            address_obj, created = Address.objects.using('postgres').update_or_create(
                 person=person_obj,
                 defaults={
                     'address_name': person.address,
