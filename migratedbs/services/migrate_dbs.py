@@ -4,11 +4,16 @@ from migratedbs.models import Address, Employee, Employee, Person, Person, Perso
 
 class MigrateDBs:
 
+    def _calculate_age(self, person: Person):
+        return person.age  # Exemplo simples, ajuste conforme necessário
+
+
     def handle_person_data(self, person: PersonMySQL):
         return {
             'name': person.name,
             'birth_date': person.birth_date,
-        }
+            'age_persisted': self._calculate_age(person),
+        }   
 
 
     def handle_employee_data(self, person: PersonMySQL):
