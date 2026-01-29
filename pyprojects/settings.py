@@ -131,6 +131,14 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     },
+    'ric': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_ric',
+        'USER': 'pyprojects',
+        'PASSWORD': 'py@pr0j3cts',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
 }
 
 

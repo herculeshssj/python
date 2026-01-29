@@ -1,0 +1,88 @@
+-- Criação do schema (opcional)
+CREATE DATABASE IF NOT EXISTS pyprojects;
+USE pyprojects;
+
+-- Tabela Person
+CREATE TABLE Person (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    birth_date DATE NOT NULL,
+    age TINYINT UNSIGNED NOT NULL DEFAULT 0,
+    registry_number VARCHAR(20) NOT NULL UNIQUE,
+    salary DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    company VARCHAR(100),
+    sector VARCHAR(60),
+    address VARCHAR(150),
+    address_number VARCHAR(20),
+    district VARCHAR(60),
+    city VARCHAR(60),
+    state CHAR(2),
+    country VARCHAR(60) DEFAULT 'Brazil',
+    post_code VARCHAR(12),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO Person (name, birth_date, registry_number, salary, company, sector, address, address_number, district, city, state, country, post_code) VALUES
+('Ana Clara Souza', '1990-03-12', '111.222.333-44', 4200.50, 'TechSol Ltda', 'TI', 'Rua das Flores', '123', 'Centro', 'Brasília', 'DF', 'Brazil', '70000-000'),
+('Bruno Martins', '1985-07-01', '222.333.444-55', 7200.00, 'Construtora Alfa', 'Construção', 'Av. Paulista', '1001', 'Bela Vista', 'São Paulo', 'SP', 'Brazil', '01310-100'),
+('Carla Pereira', '1995-11-20', '333.444.555-66', 3500.75, 'MercadoFácil', 'Varejo', 'Rua Verde', '45', 'Jardim', 'Curitiba', 'PR', 'Brazil', '80010-200'),
+('Daniel Rocha', '1978-02-02', '444.555.666-77', 15000.00, 'Banco Central', 'Financeiro', 'Praça da República', '10', 'Centro', 'Rio de Janeiro', 'RJ', 'Brazil', '20010-000'),
+('Eduarda Lima', '1992-08-15', '555.666.777-88', 4800.00, 'Saúde+', 'Saúde', 'Alameda Santos', '500', 'Cerqueira César', 'São Paulo', 'SP', 'Brazil', '01419-001'),
+('Fábio Gonçalves', '1980-12-05', '666.777.888-99', 6200.00, 'Logística BR', 'Logística', 'Rua do Comércio', '250', 'Porto', 'Manaus', 'AM', 'Brazil', '69000-000'),
+('Gabriela Nunes', '1998-06-30', '777.888.999-00', 2800.00, 'StartUp X', 'TI', 'Rua Nova', '78', 'Vila Nova', 'Belo Horizonte', 'MG', 'Brazil', '30110-000'),
+('Heitor Alves', '1975-10-10', '888.999.000-11', 9500.00, 'Indústria Forte', 'Manufatura', 'Av. Industrial', '400', 'Distrito Industrial', 'Campinas', 'SP', 'Brazil', '13010-000'),
+('Isabela Freitas', '1988-04-22', '999.000.111-22', 5300.25, 'Escritório Legal', 'Jurídico', 'Rua Azul', '210', 'Centro', 'Recife', 'PE', 'Brazil', '50010-000'),
+('João Pedro Silva', '2000-01-05', '000.111.222-33', 1800.00, 'Lanchonete do João', 'Alimentação', 'Travessa Alegre', '12', 'Vila Alegre', 'Fortaleza', 'CE', 'Brazil', '60010-000'),
+('Karla Mendes', '1993-09-17', '101.202.303-40', 4100.00, 'AgroCampo', 'Agronegócio', 'Estrada Rural', '102', 'Zona Rural', 'Goiânia', 'GO', 'Brazil', '74000-000'),
+('Lucas Carvalho', '1982-05-25', '121.323.434-50', 8700.00, 'Consultoria Prime', 'Consultoria', 'Av. Central', '900', 'Centro', 'Porto Alegre', 'RS', 'Brazil', '90010-000'),
+('Mariana Rocha', '1996-02-14', '131.242.353-61', 3300.50, 'Design Studio', 'Criação', 'Rua das Artes', '7', 'Bairro Alto', 'Florianópolis', 'SC', 'Brazil', '88010-000'),
+('Nicolas Ferreira', '1970-11-09', '141.252.363-72', 12000.00, 'PetroBrasil', 'Petróleo', 'Av. Oceânica', '2000', 'Costa', 'Salvador', 'BA', 'Brazil', '40010-000'),
+('Olívia Batista', '1999-07-07', '151.262.373-83', 2600.00, 'Delivery Já', 'Logística', 'Rua Rápida', '90', 'Vila Rápida', 'Natal', 'RN', 'Brazil', '59010-000'),
+('Paulo Henrique', '1987-03-03', '161.272.383-94', 5400.00, 'Energia SOL', 'Energia', 'Av. Solar', '333', 'Setor Leste', 'Belém', 'PA', 'Brazil', '66010-000'),
+('Queila Santos', '1991-12-28', '171.282.393-05', 3900.00, 'EducaMais', 'Educação', 'Rua do Saber', '56', 'Bairro do Saber', 'Vitória', 'ES', 'Brazil', '29010-000'),
+('Rafael Pinto', '1984-06-11', '181.292.403-16', 7800.00, 'AutoPeças', 'Automotivo', 'Rua das Oficinas', '77', 'Industrial', 'São José', 'SC', 'Brazil', '88015-000'),
+('Sofia Almeida', '2001-10-02', '191.303.414-27', 2200.00, 'Café da Esquina', 'Alimentação', 'Rua do Café', '8', 'Centro', 'Maceió', 'AL', 'Brazil', '57010-000'),
+('Thiago Rodrigues', '1979-01-19', '202.314.425-38', 9800.00, 'Transportes Rápidos', 'Transporte', 'Av. Rodoviária', '150', 'Barreiro', 'Criciúma', 'SC', 'Brazil', '88810-000'),
+('Úrsula Campos', '1994-05-05', '212.325.436-49', 4700.00, 'Marketing Hub', 'Marketing', 'Rua do Mercado', '305', 'Comercial', 'São Luís', 'MA', 'Brazil', '65010-000'),
+('Vítor Mendes', '1981-09-29', '222.336.447-50', 6600.00, 'Seguros Vida', 'Seguros', 'Av. Proteção', '420', 'Centro', 'Campo Grande', 'MS', 'Brazil', '79010-000'),
+('Wanda Ribeiro', '1968-02-18', '232.347.458-61', 13200.00, 'Hospital Central', 'Saúde', 'Rua da Esperança', '1', 'Santa Maria', 'João Pessoa', 'PB', 'Brazil', '58010-000'),
+('Xavier Lima', '1997-08-08', '242.358.469-72', 3050.00, 'Eletro Shop', 'Varejo', 'Av. Shopping', '220', 'Comércio', 'Teresina', 'PI', 'Brazil', '64010-000'),
+('Yara Oliveira', '1989-04-04', '252.369.470-83', 4550.00, 'Recursos Humanos SA', 'RH', 'Rua do Trabalho', '88', 'Bairro Novo', 'Joinville', 'SC', 'Brazil', '89210-000'),
+('Zeca Barros', '1990-12-12', '262.370.481-94', 2950.00, 'Bar do Zeca', 'Hospitalidade', 'Rua Alegre', '16', 'Centro', 'Aracaju', 'SE', 'Brazil', '49010-000'),
+('Adriana Costa', '1983-11-30', '272.381.492-05', 6100.00, 'Design&Co', 'Design', 'Rua Moderna', '33', 'Campo Belo', 'Belo Horizonte', 'MG', 'Brazil', '30130-000'),
+('Breno Vasconcelos', '1996-06-16', '282.392.503-16', 2400.00, 'Oficina 24h', 'Automotivo', 'Rua Motores', '5', 'Industrial', 'Petrolina', 'PE', 'Brazil', '56300-000'),
+('Clarice Moreira', '1976-09-23', '292.403.514-27', 9800.00, 'Clínica Viva', 'Saúde', 'Av. Vida', '60', 'Saúde', 'Ribeirão Preto', 'SP', 'Brazil', '14010-000');
+
+USE people_db;
+
+INSERT INTO Person (name, birth_date, registry_number, salary, company, sector, address, address_number, district, city, state, country, post_code) VALUES
+('Aline Pires', '1991-01-15', '303.414.525-38', 4100.00, 'Nex Comercio', 'Varejo', 'Rua Primavera', '210', 'Centro', 'São Paulo', 'SP', 'Brazil', '01234-000'),
+('Bernardo Leal', '1986-04-20', '313.425.536-49', 7600.00, 'InfraTech', 'TI', 'Av. do Progresso', '1200', 'Vila Nova', 'Rio de Janeiro', 'RJ', 'Brazil', '22222-111'),
+('Camila Torres', '1994-09-02', '323.436.547-50', 3300.25, 'Flor & Cia', 'Comércio', 'Travessa das Flores', '45', 'Jardim', 'Curitiba', 'PR', 'Brazil', '80020-000'),
+('Diego Souza', '1977-12-11', '333.447.558-61', 10200.00, 'Banco Norte', 'Financeiro', 'Praça Central', '15', 'Centro', 'Fortaleza', 'CE', 'Brazil', '60020-000'),
+('Elisa Rocha', '1990-06-03', '343.458.569-72', 4700.50, 'Clínica Bem', 'Saúde', 'Rua da Paz', '78', 'Bairro Verde', 'Belo Horizonte', 'MG', 'Brazil', '30120-000'),
+('Fernando Maia', '1983-02-28', '353.469.570-83', 5900.00, 'LogiTrans', 'Logística', 'Rua do Porto', '300', 'Zona Portuária', 'Salvador', 'BA', 'Brazil', '40020-000'),
+('Gisele Ramos', '1998-11-18', '363.480.581-94', 2900.00, 'StartLab', 'TI', 'Alameda das Acácias', '99', 'Vila Nova', 'Manaus', 'AM', 'Brazil', '69010-000'),
+('Hugo Martins', '1974-05-09', '373.491.592-05', 8800.00, 'Metalúrgica Alfa', 'Manufatura', 'Av. Metalúrgica', '420', 'Distrito Industrial', 'Campinas', 'SP', 'Brazil', '13020-000'),
+('Iara Nascimento', '1989-08-27', '383.502.603-16', 5200.75, 'Escritório & Associados', 'Jurídico', 'Rua do Fórum', '205', 'Centro', 'Recife', 'PE', 'Brazil', '50020-000'),
+('Júlio César', '2002-03-14', '393.513.614-27', 1950.00, 'Lanchonete Central', 'Alimentação', 'Rua do Mercado', '16', 'Comercial', 'Porto Alegre', 'RS', 'Brazil', '90020-000'),
+('Kátia Ventura', '1993-07-07', '403.524.625-38', 4300.00, 'AgroVida', 'Agronegócio', 'Estrada do Campo', '88', 'Zona Rural', 'Goiânia', 'GO', 'Brazil', '74010-000'),
+('Leandro Sá', '1981-10-01', '413.535.636-49', 8300.00, 'Prime Consult', 'Consultoria', 'Av. Business', '950', 'Centro', 'Florianópolis', 'SC', 'Brazil', '88020-000'),
+('Marisa Furtado', '1995-01-30', '423.546.647-50', 3500.00, 'Ateliê Criar', 'Criação', 'Rua dos Artistas', '9', 'Bairro das Artes', 'João Pessoa', 'PB', 'Brazil', '58020-000'),
+('Nelson Braga', '1969-09-12', '433.557.658-61', 12500.00, 'EnergyCo', 'Energia', 'Av. das Nações', '1500', 'Zona Sul', 'Belém', 'PA', 'Brazil', '66020-000'),
+('Olga Mendes', '1999-02-21', '443.568.669-72', 2650.00, 'Entrega Rápida', 'Logística', 'Rua do Frete', '64', 'Industrial', 'Natal', 'RN', 'Brazil', '59020-000'),
+('Pedro Lima', '1987-05-16', '453.579.670-83', 5600.00, 'SolarTech', 'Energia', 'Rua da Luz', '333', 'Setor Oeste', 'Maceió', 'AL', 'Brazil', '57020-000'),
+('Quezia Almeida', '1992-11-29', '463.590.681-94', 4050.00, 'Escola Alfa', 'Educação', 'Rua do Estudante', '72', 'Bairro Educacional', 'Vitória', 'ES', 'Brazil', '29020-000'),
+('Rodrigo Cardoso', '1985-06-06', '473.601.692-05', 7900.00, 'AutoCenter', 'Automotivo', 'Rua dos Mecânicos', '101', 'Distrito Industrial', 'São José', 'SC', 'Brazil', '88100-000'),
+('Savana Dias', '2000-12-25', '483.612.703-16', 2250.00, 'Bistrô Central', 'Alimentação', 'Praça do Bistrô', '5', 'Centro', 'Teresina', 'PI', 'Brazil', '64020-000'),
+('Tadeu Fonseca', '1979-03-08', '493.623.714-27', 9900.00, 'TransLog', 'Transporte', 'Av. das Cargas', '210', 'Barreiro', 'Criciúma', 'SC', 'Brazil', '88820-000'),
+('Ubiratan Reis', '1994-10-10', '503.634.725-38', 4550.00, 'MarketPro', 'Marketing', 'Rua Comercial', '310', 'Comercial', 'São Luís', 'MA', 'Brazil', '65020-000'),
+('Valéria Castro', '1980-08-30', '513.645.736-49', 6800.00, 'SeguraVida', 'Seguros', 'Alameda Proteção', '412', 'Centro', 'Campo Grande', 'MS', 'Brazil', '79020-000'),
+('Wesley Rocha', '1967-04-02', '523.656.747-50', 13700.00, 'Hospital São José', 'Saúde', 'Rua da Cura', '2', 'Santa Clara', 'Ribeirão Preto', 'SP', 'Brazil', '14020-000'),
+('Ximena Duarte', '1997-09-14', '533.667.758-61', 3150.00, 'Eletrosul', 'Varejo', 'Av. Central', '245', 'Centro', 'Porto Alegre', 'RS', 'Brazil', '90030-000'),
+('Ygor Antunes', '1988-02-26', '543.678.769-72', 4620.00, 'RH Solutions', 'RH', 'Rua do Trabalho', '90', 'Bairro Novo', 'Joinville', 'SC', 'Brazil', '89220-000'),
+('Zélia Pereira', '1990-11-11', '553.689.770-83', 3050.00, 'Bar e Cozinha', 'Hospitalidade', 'Rua do Lazer', '20', 'Centro', 'Aracaju', 'SE', 'Brazil', '49020-000'),
+('Andréia Motta', '1984-07-19', '563.690.781-94', 6250.00, 'StudioDesign', 'Design', 'Rua Moderna', '48', 'Campo Belo', 'Belo Horizonte', 'MG', 'Brazil', '30140-000'),
+('Bruno Pacheco', '1996-03-05', '573.701.792-05', 2550.00, 'Oficina Rápida', 'Automotivo', 'Rua dos Motores', '12', 'Industrial', 'Petrolina', 'PE', 'Brazil', '56310-000'),
+('Carolina Vas', '1975-10-21', '583.712.803-16', 10250.00, 'Clínica VidaSaud', 'Saúde', 'Av. Saúde', '78', 'Bairro Saúde', 'Manaus', 'AM', 'Brazil', '69020-000');
