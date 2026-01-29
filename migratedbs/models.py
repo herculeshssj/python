@@ -50,6 +50,9 @@ class PersonMySQL(ReadOnlyModelMixin, models.Model):
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
+    # Attach the read-only manager to also block bulk updates/deletes.
+    objects = ReadOnlyModelMixin.get_readonly_manager()
+
     class Meta:
         db_table = 'Person'
         managed = False
@@ -135,7 +138,7 @@ class RicProcessados(ReadOnlyModelMixin, models.Model):
         base = f"RIC {self.num_ric or '-'} / {self.ano_ric or '-'}"
         return f"{base} ({self.origem})"
     
-    
+
     @classmethod
     def using_ric(cls):
         """
