@@ -1,7 +1,37 @@
 from django.db import models, connections
 from datetime import date
+from django.core.exceptions import PermissionDenied
 
-class PersonMySQL(models.Model):
+import uuid
+from datetime import date
+from django.db import models
+
+
+class ReadOnlyModelMixin:
+    """
+    Mixin to make any model read-only from the Django ORM perspective.
+    It prevents save(), delete(), and bulk operations via the QuerySet.
+    """
+    def save(self, *args, **kwargs):
+        raise PermissionDenied(f"{self.__class__.__name__} is read-only and cannot be saved.")
+
+    def delete(self, *args, **kwargs):
+        raise PermissionDenied(f"{self.__class__.__name__} is read-only and cannot be deleted.")
+
+    # Optional: also protect bulk operations when accessed via the model's default manager.
+    class ReadOnlyQuerySet(models.QuerySet):
+        def update(self, **kwargs):
+            raise PermissionDenied(f"{self.model.__name__} is read-only and cannot be updated.")
+        def delete(self):
+            raise PermissionDenied(f"{self.model.__name__} is read-only and cannot be deleted.")
+
+    @classmethod
+    def get_readonly_manager(cls):
+        return models.Manager.from_queryset(cls.ReadOnlyQuerySet)()
+
+
+
+class PersonMySQL(ReadOnlyModelMixin, models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     birth_date = models.DateField()
@@ -45,9 +75,76 @@ class PersonMySQL(models.Model):
         """
         return cls.objects.using('mariadb')
 
-import uuid
-from datetime import date
-from django.db import models
+
+
+class RicProcessados(ReadOnlyModelMixin, models.Model):
+    """
+    Django model reflecting dadosric.ric_processados (PostgreSQL).
+    This model is unmanaged (read-only) and expects the table to already exist.
+    """
+    id = models.AutoField(primary_key=True)                 # serial4 NOT NULL
+    ric_id = models.IntegerField()                          # int4 NOT NULL
+    origem = models.TextField()                             # text NOT NULL
+
+    num_ric = models.TextField(null=True, blank=True)
+    ano_ric = models.TextField(null=True, blank=True)
+    sigla_tipo_ric = models.TextField(null=True, blank=True)
+    descricao_tipo_ric = models.TextField(null=True, blank=True)
+    ementa = models.TextField(null=True, blank=True)
+    cod_situacao = models.TextField(null=True, blank=True)
+    descricao_situacao = models.TextField(null=True, blank=True)
+    despacho = models.TextField(null=True, blank=True)
+
+    # jsonb NULL
+    autor = models.JSONField(null=True, blank=True)
+
+    link_congresso = models.TextField(null=True, blank=True)
+    link_inteiro_teor = models.TextField(null=True, blank=True)
+
+    # Timestamps have DB defaults; we keep them nullable in Django to avoid overriding DB behavior.
+    data_inclusao = models.DateTimeField(null=True, blank=True)
+    data_atualizacao = models.DateTimeField(null=True, blank=True)
+
+    sigla_entidade = models.TextField(null=True, blank=True)
+    casa_identificadora = models.TextField(null=True, blank=True)
+
+    # Attach the read-only manager to also block bulk updates/deletes.
+    objects = ReadOnlyModelMixin.get_readonly_manager()
+
+    class Meta:
+        # IMPORTANT: This is an unmanaged, existing table.
+        managed = False
+
+        # If your database search_path includes the "dadosric" schema, you can use:
+        # db_table = 'dadosric.ric_processados'
+        #
+        # If not, Django needs a quoted schema-qualified name to preserve the dot:
+        db_table = 'dadosric"."ric_processados'
+
+        # Unique constraint: ric_id + origem
+        unique_together = (('ric_id', 'origem'),)
+
+        # Optional: explicit PK name (Django infers from primary_key=True)
+        # constraints are already in DB, so we don't re-declare them here.
+
+        verbose_name = "RIC processado"
+        verbose_name_plural = "RICs processados"
+
+    def __str__(self):
+        # Helpful representation
+        base = f"RIC {self.num_ric or '-'} / {self.ano_ric or '-'}"
+        return f"{base} ({self.origem})"
+    
+    
+    @classmethod
+    def using_ric(cls):
+        """
+        Helper to obtain a QuerySet that will read from the 'ric' DB connection.
+        Uso: Person.using_ric().filter(...)
+        """
+        return cls.objects.using('ric')
+
+
 
 class Person(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -129,6 +226,9 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.address_name}, {self.address_number} - {self.city or ''}"
+    
+
+
 
 # ----------------------------
 # Tabelas do RIC
