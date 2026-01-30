@@ -10,7 +10,7 @@ class MigrateDBs:
         return person.computed_age()
 
 
-    def handle_person_data(self, person: PersonMySQL):
+    def _handle_person_data(self, person: PersonMySQL):
         return {
             'name': person.name,
             'birth_date': person.birth_date,
@@ -18,7 +18,7 @@ class MigrateDBs:
         }   
 
 
-    def handle_employee_data(self, person: PersonMySQL):
+    def _handle_employee_data(self, person: PersonMySQL):
         return {
             'salary': person.salary,
             'company': person.company,
@@ -27,7 +27,7 @@ class MigrateDBs:
         }
 
 
-    def handle_address_data(self, person: PersonMySQL):
+    def _handle_address_data(self, person: PersonMySQL):
         return {
             'address_name': person.address,
             'address_number': person.address_number,
@@ -49,20 +49,20 @@ class MigrateDBs:
             # Criar ou atualizar Person
             person_obj, created = Person.objects.using('postgres').update_or_create(
                 id=person.id,
-                defaults=self.handle_person_data(person)
+                defaults=self._handle_person_data(person)
             )
             
             # Criar ou atualizar Employee
             employee_obj, created = Employee.objects.using('postgres').update_or_create(
                 person=person_obj,
-                defaults=self.handle_employee_data(person)
+                defaults=self._handle_employee_data(person)
             )
             
             # Criar ou atualizar Address (se houver campos de endereço)
             # Ajuste conforme seus campos reais
             address_obj, created = Address.objects.using('postgres').update_or_create(
                 person=person_obj,
-                defaults=self.handle_address_data(person)
+                defaults=self._handle_address_data(person)
             )
 
             sleep(1)  # Simula algum tempo de processamento
