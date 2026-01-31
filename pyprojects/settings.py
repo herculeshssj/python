@@ -111,11 +111,15 @@ WSGI_APPLICATION = 'pyprojects.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'pyprojects.sqlite',
+    },
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'pyprojects.sqlite',
     },
-    'default': {
+    'postgres': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pyprojects',
         'USER': 'pyprojects',
