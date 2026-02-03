@@ -1,3 +1,4 @@
+import traceback
 from django.core.management.base import BaseCommand
 from migratedbs.services.migrate_dbs import MigrateDBs
 from migratedbs.services.migrate_ric import MigrateRIC
@@ -31,5 +32,6 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.WARNING('Use --example ou --ric'))
                 
         except Exception as e:
+            traceback.print_exc()
             self.stderr.write(self.style.ERROR(f'Erro durante a migração: {e}'))
             return

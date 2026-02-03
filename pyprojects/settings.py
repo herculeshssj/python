@@ -115,6 +115,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'pyprojects.sqlite',
     },
+    'sqlite': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'pyprojects.sqlite',
+    },
     'postgres': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pyprojects',

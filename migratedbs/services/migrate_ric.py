@@ -1,6 +1,6 @@
 import logging
-from time import sleep, perf_counter
-from migratedbs.models import Address, Employee, Employee, Person, Person, PersonMySQL, RicProcessados
+from time import perf_counter
+from migratedbs.models import RicProcessados
 
 log = logging.getLogger(__name__)
 
@@ -16,7 +16,9 @@ class MigrateRIC:
             log.info(f'Processando RIC: {ric.num_ric}/{ric.ano_ric} - Origem: {ric.origem}')
             
             # Aqui entra o processamento dos dados
-
+            
+            # Exemplo de levantamento de exceção para demonstração
+            # raise NotImplementedError("Lógica de migração do RIC não implementada.")
 
             log.info(f'RIC {ric.num_ric}/{ric.ano_ric} origem ({ric.origem}) processado com sucesso.')
 
