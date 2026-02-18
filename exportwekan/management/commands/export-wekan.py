@@ -249,19 +249,29 @@ class Command(BaseCommand):
                             checklist_items.append(text)
                 checklist_text = '\n'.join([f'- [ ] {i}' for i in checklist_items]) if checklist_items else 'Sem checklist'
 
-                # Comments (activities/messages)
+                # Comments (card_comments)
                 comments_text = 'Sem comentários'
                 try:
-                    activities = db.get_collection('activities').find({'cardId': card.get('_id')})
+                    card_comments = db.get_collection('card_comments').find({'cardId': card.get('_id')})
                 except Exception:
-                    activities = []
+                    card_comments = []
                 comments = []
-                for act in activities:
-                    # procurar por tipo de comentário
-                    text = act.get('text') or act.get('message') or act.get('description')
-                    author = safe_get(act, 'user', 'username') or safe_get(act, 'user', 'name') or act.get('userId') or 'Autor desconhecido'
-                    created = act.get('createdAt') or act.get('date') or act.get('time')
+                for comment in card_comments:
+                    text = comment.get('text')
+                    user_id = comment.get('userId')
+                    created = comment.get('createdAt')
+                    
                     if text:
+                        # Buscar informações do usuário pela userId
+                        author = 'Autor desconhecido'
+                        if user_id:
+                            try:
+                                user = db.get_collection('users').find_one({'_id': user_id})
+                                if user:
+                                    author = user.get('username') or user.get('name') or str(user_id)
+                            except Exception:
+                                author = str(user_id)
+                        
                         if hasattr(created, 'isoformat'):
                             cstr = created.isoformat()
                         else:
