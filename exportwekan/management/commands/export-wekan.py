@@ -1,5 +1,13 @@
+from pathlib import Path
+import re
+import socket
+from urllib.parse import urljoin
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from pymongo import MongoClient
+import requests
+import gridfs
+from bson import ObjectId
 
 """
 PROMPT: O objetivo deste comando é exportar as informações contidas nos cards do Wekan salvando em arquivos no formato Markdown (.md).
@@ -31,6 +39,30 @@ A versão do Wekan utilizada é a 7.93, usando o MongoDB 6.0.26. O comando deve 
 garantindo que a exportação seja realizada de forma robusta e sem erros, mesmo que alguns campos estejam ausentes ou tenham formatos inesperados.
 """
 
+
+def safe_get(obj, *keys, default=None):
+    """Acessa de forma segura um caminho de chaves/atributos aninhados em dicionários/objetos.
+
+    Exemplos:
+    - safe_get(card, 'createdBy', 'username')
+    - safe_get(activity, 'user', 'name', default='Anon')
+
+    Retorna `default` se qualquer nível estiver faltando ou não puder ser acessado.
+    """
+    cur = obj
+    for key in keys:
+        if cur is None:
+            return default
+        try:
+            if isinstance(cur, dict):
+                cur = cur.get(key, default)
+            else:
+                # tentar acesso por atributo
+                cur = getattr(cur, key, default)
+        except Exception:
+            return default
+    return cur if cur is not None else default
+
 class Command(BaseCommand):
     help = 'Exporta cards do Wekan para arquivos Markdown e baixa anexos.'
 
@@ -46,9 +78,9 @@ class Command(BaseCommand):
             type=str,
             help='URI de conexão MongoDB (ex: mongodb://user:pass@host:27017/dbname)'
         )
-        parser.add_argument('--host', type=str, help='Mongo host', default=DEFAULT_DB_HOST)
-        parser.add_argument('--port', type=int, help='Mongo port', default=DEFAULT_DB_PORT)
-        parser.add_argument('--db', type=str, help='Mongo database name', default=DEFAULT_DB_NAME)
+        parser.add_argument('--host', type=str, help='Mongo host', default='localhost')
+        parser.add_argument('--port', type=int, help='Mongo port', default=27017)
+        parser.add_argument('--db', type=str, help='Mongo database name', default='wekan')
         parser.add_argument('--limit', type=int, help='Limitar número de cards processados', default=0)
 
     def handle(self, *args, **options):
@@ -166,15 +198,27 @@ class Command(BaseCommand):
                 card_attachments = card.get('attachments') or []
                 if card_attachments:
                     for att in card_attachments:
-                        name = att.get('name') or att.get('title') or att.get('originalName') or att.get('fileName') or att.get('url', '')
-                        url = att.get('url') or att.get('link') or att.get('path') or None
-                        attachments.append({'name': name, 'url': url})
+                        # preservar o documento completo para suportar GridFS metadata
+                        if isinstance(att, dict):
+                            attachments.append(att)
+                        else:
+                            attachments.append({'name': str(att), 'url': None})
                 else:
-                    # tentar buscar em collection attachments por cardId
+                    # tentar buscar em collection attachments por cardId (pode estar em meta.cardId)
                     try:
-                        atts = db.get_collection('attachments').find({'cardId': card.get('_id')})
+                        cid = card.get('_id')
+                        queries = [{'cardId': cid}, {'meta.cardId': cid}]
+                        try:
+                            cid_str = str(cid)
+                        except Exception:
+                            cid_str = None
+                        if cid_str:
+                            queries.extend([{'cardId': cid_str}, {'meta.cardId': cid_str}])
+
+                        atts = db.get_collection('attachments').find({'$or': queries})
                         for att in atts:
-                            attachments.append({'name': att.get('name') or att.get('fileName'), 'url': att.get('url') or att.get('link')})
+                            # att já é o documento; preservar para extrair GridFS
+                            attachments.append(att)
                     except Exception:
                         pass
 
@@ -270,8 +314,68 @@ class Command(BaseCommand):
 
                 # Baixar anexos (se houver URLs acessíveis)
                 for a in attachments:
-                    url = a.get('url')
-                    name = a.get('name') or 'anexo'
+                    # `a` pode ser o documento completo da collection attachments ou um dicionário vindo do card
+                    url = a.get('url') if isinstance(a, dict) else None
+                    name = a.get('name') or a.get('fileName') or 'anexo'
+                    # tentar extrair de GridFS se o anexo estiver armazenado lá
+                    gridfs_id = None
+                    try:
+                        versions = a.get('versions') if isinstance(a, dict) else None
+                        if versions and isinstance(versions, dict):
+                            # procurar em qualquer versão por meta.gridFsFileId
+                            for v in versions.values():
+                                if not isinstance(v, dict):
+                                    continue
+                                meta = v.get('meta') or {}
+                                gf = meta.get('gridFsFileId') or meta.get('gridFsId')
+                                if gf:
+                                    gridfs_id = gf
+                                    break
+                        # também checar campos top-level que indiquem GridFS
+                        if not gridfs_id:
+                            storage = a.get('storage') if isinstance(a, dict) else None
+                            if storage == 'gridfs':
+                                gridfs_id = a.get('gridFsFileId') or a.get('gridFsId')
+                    except Exception:
+                        gridfs_id = None
+
+                    safe_name = re.sub(r'[\\/:*?"<>|]+', '_', name)
+                    attach_path = attachments_dir / safe_name
+
+                    if gridfs_id:
+                        try:
+                            oid = ObjectId(gridfs_id) if isinstance(gridfs_id, (str,)) else gridfs_id
+                            # Procurar em todas as collections que terminam com '.files' para achar o bucket correto
+                            found = False
+                            for coll in db.list_collection_names():
+                                if not coll.endswith('.files'):
+                                    continue
+                                try:
+                                    file_doc = db[coll].find_one({'_id': oid})
+                                except Exception:
+                                    file_doc = None
+                                if file_doc:
+                                    prefix = coll[:-6]
+                                    fs = gridfs.GridFS(db, collection=prefix)
+                                    gfile = fs.get(oid)
+                                    with open(attach_path, 'wb') as af:
+                                        while True:
+                                            chunk = gfile.read(8192)
+                                            if not chunk:
+                                                break
+                                            af.write(chunk)
+                                    attachments_downloaded += 1
+                                    found = True
+                                    break
+                            if not found:
+                                self.stderr.write(f'GridFS file id {gridfs_id} não encontrado em nenhum bucket (.files)')
+                                # continuar para tentar fallback via URL
+                            else:
+                                continue
+                        except Exception as e:
+                            self.stderr.write(f'Falha ao extrair GridFS id {gridfs_id}: {e}')
+
+                    # se não houver GridFS ou falhar, tentar via URL/HTTP
                     if not url:
                         continue
                     # nome seguro
