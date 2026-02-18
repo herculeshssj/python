@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'core',
     'helloworld',
     'migratedbs',
+    'exportwekan',
 ]
 
 MIDDLEWARE = [
