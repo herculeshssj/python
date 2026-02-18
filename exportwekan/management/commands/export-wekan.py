@@ -129,6 +129,8 @@ class Command(BaseCommand):
         processed = 0
         md_exported = 0
         attachments_downloaded = 0
+        # registrar _id (ObjectId) de arquivos GridFS já exportados
+        exported_gridfs_ids = set()
 
         self.stdout.write(f'Iniciando exportação de {total} cards (limit={limit})...')
 
@@ -365,6 +367,10 @@ class Command(BaseCommand):
                                                 break
                                             af.write(chunk)
                                     attachments_downloaded += 1
+                                    try:
+                                        exported_gridfs_ids.add(oid)
+                                    except Exception:
+                                        pass
                                     found = True
                                     break
                             if not found:
@@ -415,6 +421,58 @@ class Command(BaseCommand):
         self.stdout.write(f'Cards processados: {processed}')
         self.stdout.write(f'Arquivos Markdown exportados: {md_exported}')
         self.stdout.write(f'Anexos baixados: {attachments_downloaded}')
+
+        # Exportar buckets adicionais que podem existir como collections GridFS (.files)
+        target_buckets = [
+            'attachments',
+            'cfs_gridfs._tempstore',
+            'cfs_gridfs.attachments',
+            'cfs_gridfs.avatars',
+        ]
+
+        self.stdout.write('Exportando conteúdos de buckets ausentes...')
+        for prefix in target_buckets:
+            matched = False
+            for coll in db.list_collection_names():
+                if not coll.endswith('.files'):
+                    continue
+                base_prefix = coll[:-6]
+                # aceitar correspondência exata ou prefixo que contenha o nome pedido
+                if base_prefix == prefix or base_prefix.startswith(prefix):
+                    matched = True
+                    bucket_dir = attachments_dir / base_prefix.replace('.', '_')
+                    bucket_dir.mkdir(parents=True, exist_ok=True)
+                    fs = gridfs.GridFS(db, collection=base_prefix)
+                    try:
+                        for file_doc in db[coll].find():
+                            fid = file_doc.get('_id')
+                            if fid in exported_gridfs_ids:
+                                continue
+                            fname = file_doc.get('filename') or str(fid)
+                            safe_fname = re.sub(r'[\\/:*?"<>|]+', '_', fname)
+                            out_path = bucket_dir / safe_fname
+                            try:
+                                gfile = fs.get(fid)
+                                with open(out_path, 'wb') as of:
+                                    while True:
+                                        chunk = gfile.read(8192)
+                                        if not chunk:
+                                            break
+                                        of.write(chunk)
+                                attachments_downloaded += 1
+                                try:
+                                    exported_gridfs_ids.add(fid)
+                                except Exception:
+                                    pass
+                            except Exception as e:
+                                self.stderr.write(f'Falha ao exportar {fid} de {coll}: {e}')
+                    except Exception as e:
+                        self.stderr.write(f'Erro ao iterar collection {coll}: {e}')
+            if not matched:
+                self.stdout.write(f'Bucket não encontrado: {prefix}')
+
+        self.stdout.write('---')
+        self.stdout.write(f'Anexos totais baixados (incluindo buckets finais): {attachments_downloaded}')
 
         return 0
 
