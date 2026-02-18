@@ -232,21 +232,22 @@ class Command(BaseCommand):
                         lines.append(f'- [[{filename}]]')
                     attachments_text = '\n'.join(lines)
 
-                # Checklist
+                # Checklist (checklistItems collection)
                 checklist_items = []
-                checklists = card.get('checklists') or card.get('checklist') or []
-                if isinstance(checklists, dict):
-                    # possivelmente map de id->checklist
-                    checklists = list(checklists.values())
-                for cl in checklists:
-                    if isinstance(cl, dict):
-                        items = cl.get('items') or cl.get('checkItems') or []
-                        for it in items:
-                            if isinstance(it, dict):
-                                text = it.get('text') or it.get('name') or str(it)
-                            else:
-                                text = str(it)
-                            checklist_items.append(text)
+                try:
+                    # Buscar checklists associados ao card
+                    checklists = db.get_collection('checklists').find({'cardId': card.get('_id')})
+                    for checklist in checklists:
+                        checklist_id = checklist.get('_id')
+                        if checklist_id:
+                            # Buscar items deste checklist
+                            items = db.get_collection('checklistItems').find({'checklistId': checklist_id})
+                            for item in items:
+                                text = item.get('text')
+                                if text:
+                                    checklist_items.append(text)
+                except Exception:
+                    pass
                 checklist_text = '\n'.join([f'- [ ] {i}' for i in checklist_items]) if checklist_items else 'Sem checklist'
 
                 # Comments (card_comments)
