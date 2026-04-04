@@ -1,1 +1,0 @@
-Fonte: https://medium.com/@sinturana07/swagger-integration-with-python-django-django-rest-framework-swagger-swagger-chapter-29-e8a59da97ab1
