@@ -17,4 +17,4 @@ requests==2.33.0
 rfc3339==6.2
 sqlparse==0.5.5
 typing_extensions==4.15.0
-urllib3==2.6.3
+urllib3==2.7.0
