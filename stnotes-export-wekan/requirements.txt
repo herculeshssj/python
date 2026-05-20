@@ -1,6 +1,6 @@
 certifi==2024.7.4
 charset-normalizer==3.3.2
-idna==3.7
+idna==3.15
 python-dateutil==2.9.0.post0
 python-wekan==0.3.1
 requests==2.33.0
