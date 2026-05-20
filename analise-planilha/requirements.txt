@@ -7,7 +7,7 @@ charset-normalizer==3.4.4
 Django==6.0.5
 dnspython==2.8.0
 et_xmlfile==2.0.0
-idna==3.11
+idna==3.15
 minio==7.2.20
 mongo==0.2.0
 numpy==2.4.4
