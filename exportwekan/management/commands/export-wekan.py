@@ -312,7 +312,7 @@ class Command(BaseCommand):
                 md_lines.append('')
                 md_lines.append(comments_text)
 
-                safe_title = re.sub(r'[\\/:*?"<>|]+', '_', title)[:150]
+                safe_title = re.sub(r'[\\/:*?"<>|\n\r\t]+', '_', title)[:150]
                 md_filename = outdir / f"{safe_title or card_id}.md"
                 # Garantir único se houver duplicata
                 counter = 1
